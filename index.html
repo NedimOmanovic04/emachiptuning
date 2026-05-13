@@ -1,0 +1,2980 @@
+﻿<!DOCTYPE html>
+<html lang="bs">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="EMA ChipTuning Visoko – profesionalni chiptuning, DPF/EGR/AdBlue OFF, Stage 1&2, Pop&Bangs, dijagnostika i više. Zakažite termin: +387 644 032 251" />
+  <meta name="keywords"
+    content="chiptuning, visoko, bosna, stage 1, stage 2, DPF off, EGR off, AdBlue off, pop bangs, dijagnostika, remap" />
+  <meta name="author" content="EMA ChipTuning" />
+  <meta property="og:title" content="EMA ChipTuning Visoko" />
+  <meta property="og:description"
+    content="Profesionalni chiptuning servis u Visokom. Stage 1&2, DPF/EGR/AdBlue OFF, Pop&Bangs i još mnogo više." />
+  <meta property="og:type" content="website" />
+  <title>EMA ChipTuning | Visoko</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ── RESET & TOKENS ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #080808;
+      --bg-card: #111111;
+      --bg-card2: #161616;
+      --border: #1e1e1e;
+      --border-hi: #2a2a2a;
+      --red: #e63946;
+      --red-dark: #b52d38;
+      --red-glow: rgba(230, 57, 70, .22);
+      --red-glow2: rgba(230, 57, 70, .08);
+      --text: #f2f2f2;
+      --muted: #7a7a7a;
+      --dim: #888888;
+      --font-h: 'Bebas Neue', sans-serif;
+      --font-s: 'Rajdhani', sans-serif;
+      --font-b: 'Inter', sans-serif;
+      --nav-h: 68px;
+      --r: 8px;
+      --t: .28s cubic-bezier(.25, .46, .45, .94);
+      --t-fast: .18s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--red);
+      border-radius: 3px;
+    }
+
+    /* ── SKIP LINK (a11y) ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--red);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 0 0 var(--r) var(--r);
+      font-family: var(--font-s);
+      font-weight: 700;
+      z-index: 9999;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ── SCROLL PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--red-dark), var(--red), #ff6b6b);
+      z-index: 2000;
+      transition: width .1s linear;
+      box-shadow: 0 0 8px var(--red-glow);
+    }
+
+    /* ── UTILS ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-family: var(--font-s);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .section-title {
+      font-family: var(--font-h);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: .96;
+      letter-spacing: .02em;
+      margin-bottom: 18px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 560px;
+    }
+
+    .accent {
+      color: var(--red);
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 30px;
+      border-radius: var(--r);
+      font-family: var(--font-s);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform var(--t), box-shadow var(--t), background var(--t), border-color var(--t), color var(--t);
+      min-height: 44px;
+      /* touch target */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, .08);
+      opacity: 0;
+      transition: opacity var(--t-fast);
+    }
+
+    .btn:active::after {
+      opacity: 1;
+    }
+
+    .btn-red {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .btn-red:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--red-glow);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border-hi);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--red);
+      color: var(--red);
+      transform: translateY(-2px);
+    }
+
+    /* ── FADE-UP ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .55s ease-out, transform .55s ease-out;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── PREFERS-REDUCED-MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .fade-up {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       NAV
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      z-index: 1000;
+      transition: background var(--t), box-shadow var(--t);
+    }
+
+    #navbar.scrolled {
+      background: rgba(8, 8, 8, .96);
+      box-shadow: 0 1px 0 var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-h);
+      font-size: 1.55rem;
+      letter-spacing: .06em;
+      text-decoration: none;
+      color: var(--text);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-logo .chip {
+      color: var(--red);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-s);
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color var(--t);
+      position: relative;
+      padding-bottom: 4px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .22s ease-out;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      margin-left: 8px;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1100;
+      min-width: 44px;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform .25s ease-out, opacity .2s ease-out;
+      transform-origin: center;
+    }
+
+    .hamburger[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile overlay menu */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 5, .98);
+      z-index: 1050;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease-out;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-menu a {
+      font-family: var(--font-h);
+      font-size: 2.4rem;
+      letter-spacing: .06em;
+      text-decoration: none;
+      color: var(--text);
+      transition: color var(--t);
+      opacity: 0;
+      transform: translateY(16px);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-menu.open a {
+      animation: mobileItemIn .35s ease-out forwards;
+    }
+
+    .mobile-menu.open a:nth-child(1) {
+      animation-delay: .05s;
+    }
+
+    .mobile-menu.open a:nth-child(2) {
+      animation-delay: .10s;
+    }
+
+    .mobile-menu.open a:nth-child(3) {
+      animation-delay: .15s;
+    }
+
+    .mobile-menu.open a:nth-child(4) {
+      animation-delay: .20s;
+    }
+
+    .mobile-menu.open a:nth-child(5) {
+      animation-delay: .25s;
+    }
+
+    .mobile-menu.open a:nth-child(6) {
+      animation-delay: .32s;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--red);
+    }
+
+    @keyframes mobileItemIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border-hi);
+      margin: 8px 0;
+      opacity: 0;
+    }
+
+    .mobile-menu.open .mobile-divider {
+      animation: mobileItemIn .35s .28s ease-out forwards;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       HERO
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: calc(var(--nav-h) + 60px) 24px 100px;
+    }
+
+    /* Radial gradient base */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 38%, rgba(230, 57, 70, .13) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 70% at 85% 75%, rgba(230, 57, 70, .05) 0%, transparent 55%),
+        linear-gradient(175deg, #0e0e0e 0%, #060606 100%);
+    }
+
+    /* Animated SVG circuit pattern */
+    .hero-circuit {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .hero-circuit svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Circuit trace animation */
+    .c-trace {
+      fill: none;
+      stroke: var(--red);
+      stroke-width: 1;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: traceIn 2.5s ease-out forwards;
+    }
+
+    .c-trace-2 {
+      fill: none;
+      stroke: rgba(230, 57, 70, .4);
+      stroke-width: .8;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: traceIn 3s .4s ease-out forwards;
+    }
+
+    .c-trace-3 {
+      fill: none;
+      stroke: rgba(230, 57, 70, .25);
+      stroke-width: .6;
+      stroke-dasharray: 180;
+      stroke-dashoffset: 180;
+      animation: traceIn 3.5s .8s ease-out forwards;
+    }
+
+    .c-node {
+      fill: var(--red);
+      opacity: 0;
+      animation: nodeIn .4s ease-out forwards;
+    }
+
+    .c-node-dim {
+      fill: rgba(230, 57, 70, .4);
+      opacity: 0;
+      animation: nodeIn .4s ease-out forwards;
+    }
+
+    @keyframes traceIn {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes nodeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Speed lines overlay */
+    .hero-speedlines {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-speedlines::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -10%;
+      width: 120%;
+      height: 100%;
+      background: repeating-linear-gradient(105deg,
+          transparent 0px,
+          transparent 60px,
+          rgba(230, 57, 70, .018) 60px,
+          rgba(230, 57, 70, .018) 61px);
+    }
+
+    /* Content */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 920px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(230, 57, 70, .1);
+      border: 1px solid rgba(230, 57, 70, .25);
+      border-radius: 100px;
+      padding: 7px 20px;
+      font-family: var(--font-s);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 28px;
+      animation: fadeSlideDown .7s ease-out both;
+    }
+
+    @keyframes fadeSlideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge i {
+      font-size: .7rem;
+    }
+
+    /* Title with glitch + letter-spacing animation */
+    .hero-title {
+      font-family: var(--font-h);
+      font-size: clamp(3.8rem, 11vw, 9rem);
+      line-height: .9;
+      letter-spacing: .02em;
+      margin-bottom: 10px;
+      position: relative;
+      animation: heroTitleIn .8s .2s ease-out both;
+    }
+
+    @keyframes heroTitleIn {
+      from {
+        opacity: 0;
+        letter-spacing: .28em;
+      }
+
+      to {
+        opacity: 1;
+        letter-spacing: .02em;
+      }
+    }
+
+    .hero-title .line1 {
+      display: block;
+      position: relative;
+    }
+
+    /* Glitch layers */
+    .hero-title .line1::before,
+    .hero-title .line1::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      font-family: var(--font-h);
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .hero-title .line1::before {
+      color: #e63946;
+      animation: glitch1 .7s .9s ease-out both;
+      clip-path: inset(0 0 100% 0);
+    }
+
+    .hero-title .line1::after {
+      color: #00f5ff;
+      animation: glitch2 .7s .9s ease-out both;
+      clip-path: inset(100% 0 0 0);
+    }
+
+    @keyframes glitch1 {
+      0% {
+        clip-path: inset(10% 0 75% 0);
+        transform: translateX(-6px);
+        opacity: .85;
+      }
+
+      15% {
+        clip-path: inset(40% 0 45% 0);
+        transform: translateX(5px);
+      }
+
+      30% {
+        clip-path: inset(65% 0 20% 0);
+        transform: translateX(-4px);
+      }
+
+      45% {
+        clip-path: inset(80% 0 5% 0);
+        transform: translateX(3px);
+      }
+
+      60% {
+        clip-path: inset(0 0 100% 0);
+        transform: translateX(0);
+        opacity: 0;
+      }
+
+      100% {
+        clip-path: inset(0 0 100% 0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes glitch2 {
+      0% {
+        clip-path: inset(75% 0 10% 0);
+        transform: translateX(6px);
+        opacity: .7;
+      }
+
+      15% {
+        clip-path: inset(45% 0 40% 0);
+        transform: translateX(-5px);
+      }
+
+      30% {
+        clip-path: inset(20% 0 65% 0);
+        transform: translateX(4px);
+      }
+
+      45% {
+        clip-path: inset(5% 0 80% 0);
+        transform: translateX(-3px);
+      }
+
+      60% {
+        clip-path: inset(100% 0 0 0);
+        transform: translateX(0);
+        opacity: 0;
+      }
+
+      100% {
+        clip-path: inset(100% 0 0 0);
+        opacity: 0;
+      }
+    }
+
+    .hero-title .line2 {
+      color: var(--red);
+      display: block;
+    }
+
+    .hero-title .line3 {
+      display: block;
+    }
+
+    /* Animated red separator line */
+    .hero-redline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px auto 24px;
+      animation: fadeSlideDown .6s .6s ease-out both;
+    }
+
+    .hero-redline-bar {
+      height: 3px;
+      width: 0;
+      background: var(--red);
+      border-radius: 2px;
+      animation: lineExpand .9s .8s ease-out forwards;
+      box-shadow: 0 0 10px var(--red-glow);
+    }
+
+    .hero-redline-bar.long {
+      animation-delay: .85s;
+    }
+
+    .hero-redline-bar.short {
+      width: 0;
+      animation-duration: .7s;
+      animation-delay: 1s;
+    }
+
+    @keyframes lineExpand {
+      to {
+        width: 80px;
+      }
+    }
+
+    .hero-redline-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      opacity: 0;
+      animation: nodeIn .3s 1.1s ease-out forwards;
+      box-shadow: 0 0 8px var(--red-glow);
+    }
+
+    .hero-sub {
+      font-family: var(--font-s);
+      font-size: clamp(.9rem, 2.2vw, 1.2rem);
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      animation: fadeSlideDown .6s .7s ease-out both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+      animation: fadeSlideDown .6s .8s ease-out both;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 44px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeSlideDown .6s .9s ease-out both;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat .num {
+      font-family: var(--font-h);
+      font-size: 2.3rem;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    .hero-stat .lbl {
+      font-family: var(--font-s);
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      opacity: 0;
+      animation: fadeSlideDown .5s 1.4s ease-out forwards;
+    }
+
+    .hero-scroll-hint span {
+      font-family: var(--font-s);
+      font-size: .66rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, var(--red), transparent);
+      animation: scrollPulse 2.2s 1.6s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        opacity: .3;
+        transform: scaleY(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scaleY(1.15);
+      }
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SECTIONS SHARED
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    section {
+      padding: 104px 0;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       ABOUT
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #about {
+      background: var(--bg);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-img-wrap {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+    }
+
+    .about-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.8) saturate(1.1);
+    }
+
+    /* Diagonal red stripe overlay */
+    .about-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(-45deg,
+          transparent 0px,
+          transparent 14px,
+          rgba(230, 57, 70, .06) 14px,
+          rgba(230, 57, 70, .06) 15px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Red corner accent */
+    .about-img-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg,
+          rgba(230, 57, 70, .12) 0%,
+          transparent 40%,
+          transparent 60%,
+          rgba(230, 57, 70, .06) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -18px;
+      right: -18px;
+      background: var(--red);
+      border-radius: 12px;
+      padding: 18px 22px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(230, 57, 70, .45);
+      z-index: 3;
+    }
+
+    .about-badge .num {
+      font-family: var(--font-h);
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .about-badge .lbl {
+      font-family: var(--font-s);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .about-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-s);
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--muted);
+      transition: color var(--t);
+    }
+
+    .about-feature:hover {
+      color: var(--text);
+    }
+
+    .about-feature i {
+      color: var(--red);
+      width: 18px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SERVICES
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #services {
+      background: #090909;
+    }
+
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px 26px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--t), transform var(--t), box-shadow var(--t);
+      cursor: default;
+    }
+
+    /* Left border slide-in effect */
+    .service-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--red);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .25s ease-out;
+      border-radius: 0 0 0 12px;
+    }
+
+    /* Subtle red gradient background on hover */
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(230, 57, 70, .06) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--t);
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      border-color: rgba(230, 57, 70, .35);
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .35), 0 0 0 1px rgba(230, 57, 70, .12);
+    }
+
+    .service-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .service-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Popular badge glow */
+    .service-card.popular {
+      border-color: rgba(230, 57, 70, .3);
+      box-shadow: 0 0 0 1px rgba(230, 57, 70, .12), 0 4px 20px rgba(230, 57, 70, .08);
+    }
+
+    .service-card.popular::before {
+      transform: scaleY(1);
+    }
+
+    .service-card-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(230, 57, 70, .09);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      transition: background var(--t);
+    }
+
+    .service-card:hover .service-card-icon {
+      background: rgba(230, 57, 70, .18);
+    }
+
+    .service-card-icon i {
+      font-size: 1.3rem;
+      color: var(--red);
+    }
+
+    .service-card-title {
+      font-family: var(--font-s);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      margin-bottom: 10px;
+    }
+
+    .service-card-desc {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+
+    .service-tag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-family: var(--font-s);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+
+    .service-tag.hot {
+      color: var(--red);
+      background: rgba(230, 57, 70, .1);
+      border: 1px solid rgba(230, 57, 70, .25);
+    }
+
+    .service-tag.gray {
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       WHY US
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #why {
+      background: var(--bg);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .why-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px 22px;
+      transition: border-color var(--t), transform var(--t);
+    }
+
+    .why-card:hover {
+      border-color: rgba(230, 57, 70, .35);
+      transform: translateY(-3px);
+    }
+
+    .why-card i {
+      font-size: 1.5rem;
+      color: var(--red);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .why-card h3 {
+      font-family: var(--font-s);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      margin-bottom: 7px;
+    }
+
+    .why-card p {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.62;
+    }
+
+    .why-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .why-stat-row {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 26px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: border-color var(--t);
+    }
+
+    .why-stat-row:hover {
+      border-color: rgba(230, 57, 70, .3);
+    }
+
+    .why-stat-row .num {
+      font-family: var(--font-h);
+      font-size: 2.6rem;
+      color: var(--red);
+      line-height: 1;
+      min-width: 76px;
+    }
+
+    .why-stat-row .info h4 {
+      font-family: var(--font-s);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      margin-bottom: 3px;
+    }
+
+    .why-stat-row .info p {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .equip-bar {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .equip-pill {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 15px;
+      font-family: var(--font-s);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 44px;
+    }
+
+    .equip-pill i {
+      color: var(--red);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       GALLERY / BRANDS
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #gallery {
+      background: #090909;
+    }
+
+    .brands-sublabel {
+      font-family: var(--font-s);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .brands-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 56px;
+    }
+
+    .brand-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-family: var(--font-s);
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: border-color var(--t), color var(--t), transform var(--t-fast);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-pill:hover {
+      border-color: var(--red);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 14px;
+    }
+
+    .gallery-item {
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease-out, filter .4s ease-out;
+      filter: brightness(.65) saturate(.75);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+      filter: brightness(.82) saturate(1.05);
+    }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, .75) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity var(--t);
+      display: flex;
+      align-items: flex-end;
+      padding: 16px 18px;
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+
+    .gallery-item-overlay span {
+      font-family: var(--font-s);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CONTACT
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #contact {
+      background: var(--bg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .contact-block h3 {
+      font-family: var(--font-s);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-block h3::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 11px;
+      min-height: 44px;
+    }
+
+    .contact-item i {
+      color: var(--red);
+      font-size: 1rem;
+      width: 18px;
+      text-align: center;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .contact-item a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .92rem;
+      transition: color var(--t);
+    }
+
+    .contact-item a:hover {
+      color: var(--red);
+    }
+
+    .contact-item span {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 20px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 0;
+      font-size: .86rem;
+    }
+
+    .hours-row .day {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .hours-row .time {
+      font-weight: 600;
+      font-family: var(--font-s);
+      font-size: .92rem;
+    }
+
+    .hours-row .closed {
+      color: var(--red);
+      font-weight: 700;
+      font-family: var(--font-s);
+    }
+
+    .map-container {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      height: 240px;
+      background: var(--bg-card2);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(1) brightness(.75) contrast(.9);
+    }
+
+    .social-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background var(--t), border-color var(--t), color var(--t), transform var(--t);
+    }
+
+    .social-btn:hover {
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    .social-btn.ig:hover {
+      background: #e1306c;
+      border-color: #e1306c;
+    }
+
+    .social-btn.fb:hover {
+      background: #1877f2;
+      border-color: #1877f2;
+    }
+
+    .social-btn.tt:hover {
+      background: #111;
+      border-color: #555;
+    }
+
+    .social-btn.wa:hover {
+      background: #25d366;
+      border-color: #25d366;
+    }
+
+    .social-btn.vi:hover {
+      background: #7360f2;
+      border-color: #7360f2;
+    }
+
+    /* Contact form — underline focus style */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+
+    .form-group label {
+      font-family: var(--font-s);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-bottom: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: .9rem;
+      transition: border-color var(--t), background var(--t);
+      outline: none;
+      min-height: 44px;
+      position: relative;
+    }
+
+    /* Underline slide animation on focus */
+    .form-group {
+      overflow: hidden;
+    }
+
+    .form-group::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .22s ease-out;
+      border-radius: 0 0 var(--r) var(--r);
+    }
+
+    .form-group:focus-within::after {
+      transform: scaleX(1);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: rgba(230, 57, 70, .25);
+      border-bottom-color: transparent;
+      background: #131313;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 116px;
+    }
+
+    .form-group select option {
+      background: var(--bg-card);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       FOOTER
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    footer {
+      background: #040404;
+      padding: 36px 0;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--red) 35%, #ff4444 55%, var(--red) 70%, transparent 100%);
+      background-size: 200% 100%;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        background-position: 0% 0%;
+      }
+
+      50% {
+        background-position: 100% 0%;
+      }
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-family: var(--font-h);
+      font-size: 1.35rem;
+      letter-spacing: .06em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .footer-logo .chip {
+      color: var(--red);
+    }
+
+    .footer-copy {
+      font-size: .78rem;
+      color: var(--dim);
+      text-align: center;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 9px;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       BACK TO TOP
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      background: var(--red);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(230, 57, 70, .45);
+      z-index: 900;
+      opacity: 0;
+      transform: translateY(16px) scale(.85);
+      pointer-events: none;
+      transition: opacity .25s ease-out, transform .25s ease-out, background var(--t);
+    }
+
+    #back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    #back-to-top:hover {
+      background: var(--red-dark);
+      transform: translateY(-3px) scale(1);
+    }
+
+    #back-to-top:active {
+      transform: translateY(0) scale(.95);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       TOAST
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1a1a1a;
+      border: 1px solid rgba(230, 57, 70, .4);
+      color: var(--text);
+      font-family: var(--font-s);
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 14px 26px;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+      opacity: 0;
+      transition: opacity .3s ease-out, transform .3s ease-out;
+      z-index: 9999;
+      pointer-events: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #toast i {
+      color: var(--red);
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ─── CALCULATOR ─────────────────────── */
+    #calculator { padding: 96px 0; }
+    .calc-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .calc-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      align-items: center;
+      gap: 16px;
+    }
+    .calc-row-lbl {
+      font-family: var(--font-s);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .calc-sel-wrap { position: relative; }
+    .calc-sel-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--red);
+      font-size: .9rem;
+    }
+    .calc-sel-wrap select,
+    .calc-power-inp {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: .9rem;
+      padding: 11px 38px 11px 14px;
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      transition: border-color .2s;
+      box-sizing: border-box;
+    }
+    .calc-power-inp { padding-right: 14px; }
+    .calc-sel-wrap select:focus,
+    .calc-power-inp:focus { border-color: var(--red); }
+    .calc-sel-wrap select:disabled,
+    .calc-power-inp:disabled { opacity: .4; cursor: not-allowed; }
+    .calc-sel-group.disabled { opacity: .45; pointer-events: none; }
+    .calc-sel-group.disabled.active,
+    .calc-sel-group.active { opacity: 1; pointer-events: auto; }
+    /* Engine row */
+    .calc-engine-row { display: flex; flex-direction: column; gap: 12px; }
+    .calc-engine-lbl {
+      font-family: var(--font-s);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .calc-engine-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+    .calc-field-lbl {
+      font-size: .72rem;
+      color: var(--dim);
+      margin-bottom: 6px;
+      font-family: var(--font-s);
+      letter-spacing: .05em;
+    }
+    /* Results */
+    .cr-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .cr-col {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+    .cr-col.stage1 { border-color: rgba(230,57,70,.35); }
+    .cr-col-lbl {
+      font-family: var(--font-s);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .cr-stat { margin-bottom: 10px; }
+    .cr-stat-lbl { font-size: .72rem; color: var(--dim); margin-bottom: 2px; }
+    .cr-stat-val { font-family: var(--font-s); font-size: 1.35rem; font-weight: 700; color: var(--text); }
+    .cr-stat-val .gain { color: var(--red); font-size: .9rem; margin-left: 6px; }
+    .cr-tools { margin-bottom: 16px; }
+    .cr-block-lbl {
+      font-family: var(--font-s);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .cr-tool-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+    .cr-tool-item i { color: var(--red); margin-top: 2px; flex-shrink: 0; }
+    .cr-tool-info strong { display: block; font-size: .82rem; color: var(--text); margin-bottom: 1px; }
+    .cr-tool-info span { font-size: .75rem; color: var(--dim); }
+    .cr-services { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .cr-svc-pill {
+      font-family: var(--font-s);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      background: rgba(230,57,70,.09);
+      border: 1px solid rgba(230,57,70,.22);
+      color: var(--red);
+      border-radius: 100px;
+      padding: 4px 13px;
+    }
+    .cr-note { font-size: .72rem; color: var(--dim); line-height: 1.5; }
+    .cr-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       RESPONSIVE
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    @media (max-width: 960px) {
+
+      .about-grid,
+      .why-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .calc-card { padding: 24px 20px; }
+      .calc-row { grid-template-columns: 1fr; }
+      .calc-engine-fields { grid-template-columns: 1fr 1fr; }
+      .cr-cols { grid-template-columns: 1fr; }
+
+      .why-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .about-badge {
+        bottom: -12px;
+        right: -12px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      section {
+        padding: 72px 0;
+      }
+
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .why-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        gap: 28px;
+      }
+
+      .services-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .hours-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main" class="skip-link">Skoči na sadržaj</a>
+
+  <!-- SCROLL PROGRESS -->
+  <div id="progress-bar" role="progressbar" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════════
+       NAV
+  ══════════════════════════════════════ -->
+  <nav id="navbar" aria-label="Glavna navigacija">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">EMA<span class="chip">CHIP</span>TUNING</a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about">O Nama</a></li>
+        <li><a href="#calculator">Kalkulator</a></li>
+        <li><a href="#services">Usluge</a></li>
+        <li><a href="#why">Zašto Mi</a></li>
+        <li><a href="#gallery">Vozila</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+
+      <a href="tel:+387644032251" class="btn btn-red nav-cta" style="padding:10px 20px;font-size:.82rem;">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i> Pozovi
+      </a>
+
+      <button class="hamburger" id="hamburger" aria-label="Otvori meni" aria-expanded="false"
+        aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigacijski meni">
+    <a href="#about"      class="mobile-link">O Nama</a>
+    <a href="#calculator" class="mobile-link">Kalkulator</a>
+    <a href="#services"   class="mobile-link">Usluge</a>
+    <a href="#why"        class="mobile-link">Zašto Mi</a>
+    <a href="#gallery"    class="mobile-link">Vozila</a>
+    <a href="#contact"    class="mobile-link">Kontakt</a>
+    <div class="mobile-divider" aria-hidden="true"></div>
+    <a href="tel:+387644032251" class="btn btn-red" style="font-size:.9rem;margin-top:4px;">
+      <i class="fa-solid fa-phone" aria-hidden="true"></i> +387 644 032 251
+    </a>
+  </div>
+
+  <main id="main">
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section id="hero" aria-labelledby="hero-title">
+
+      <div class="hero-bg" aria-hidden="true"></div>
+
+      <!-- Animated circuit SVG -->
+      <div class="hero-circuit" aria-hidden="true">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img"
+          aria-hidden="true">
+          <!-- Primary circuit traces -->
+          <path class="c-trace" d="M120 200 H340 V320 H560 V200 H780" style="animation-delay:.1s" />
+          <path class="c-trace" d="M900 150 V380 H1100 V280 H1320" style="animation-delay:.4s" />
+          <path class="c-trace" d="M200 600 H440 V720 H680 V580 H920" style="animation-delay:.7s" />
+          <path class="c-trace" d="M1040 680 H1260 V520 H1400" style="animation-delay:.9s" />
+          <!-- Secondary traces -->
+          <path class="c-trace-2" d="M340 320 V480 H560" style="animation-delay:.5s" />
+          <path class="c-trace-2" d="M780 200 V420 H900" style="animation-delay:.6s" />
+          <path class="c-trace-2" d="M560 480 H680 V580" style="animation-delay:.8s" />
+          <path class="c-trace-2" d="M440 720 V820 H880 V740" style="animation-delay:1s" />
+          <!-- Tertiary traces -->
+          <path class="c-trace-3" d="M120 200 V460 H200 V600" style="animation-delay:1.1s" />
+          <path class="c-trace-3" d="M1100 280 V120 H720 V150" style="animation-delay:1.3s" />
+          <!-- Nodes -->
+          <circle class="c-node" cx="340" cy="320" r="3" style="animation-delay:.55s" />
+          <circle class="c-node" cx="560" cy="200" r="3" style="animation-delay:.25s" />
+          <circle class="c-node" cx="780" cy="200" r="3" style="animation-delay:.42s" />
+          <circle class="c-node" cx="900" cy="380" r="3" style="animation-delay:.72s" />
+          <circle class="c-node" cx="1100" cy="280" r="3" style="animation-delay:.88s" />
+          <circle class="c-node" cx="560" cy="480" r="3" style="animation-delay:.82s" />
+          <circle class="c-node" cx="680" cy="580" r="3" style="animation-delay:.96s" />
+          <circle class="c-node" cx="440" cy="720" r="3" style="animation-delay:1.05s" />
+          <!-- Dim nodes -->
+          <circle class="c-node-dim" cx="120" cy="200" r="2" style="animation-delay:.15s" />
+          <circle class="c-node-dim" cx="200" cy="600" r="2" style="animation-delay:.68s" />
+          <circle class="c-node-dim" cx="920" cy="580" r="2" style="animation-delay:.92s" />
+          <circle class="c-node-dim" cx="1320" cy="280" r="2" style="animation-delay:.95s" />
+          <circle class="c-node-dim" cx="880" cy="740" r="2" style="animation-delay:1.1s" />
+          <!-- Small squares at junctions -->
+          <rect class="c-node" x="337" y="477" width="6" height="6" rx="1" style="animation-delay:.7s" />
+          <rect class="c-node" x="677" y="717" width="6" height="6" rx="1" style="animation-delay:1.05s" />
+          <rect class="c-node" x="897" y="147" width="6" height="6" rx="1" style="animation-delay:.42s" />
+        </svg>
+      </div>
+
+      <!-- Speed lines -->
+      <div class="hero-speedlines" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+          Profesionalni Chiptuning Servis · Visoko, BiH
+        </div>
+
+        <h1 class="hero-title" id="hero-title">
+          <span class="line1" data-text="EMA">EMA</span>
+          <span class="line2">CHIP</span>
+          <span class="line3">TUNING</span>
+        </h1>
+
+        <!-- Animated red separator -->
+        <div class="hero-redline" aria-hidden="true">
+          <div class="hero-redline-bar long"></div>
+          <div class="hero-redline-dot"></div>
+          <div class="hero-redline-bar short"></div>
+        </div>
+
+        <p class="hero-sub">Stage 1 &amp; 2 &nbsp;·&nbsp; DPF / EGR OFF &nbsp;·&nbsp; Pop &amp; Bangs &nbsp;·&nbsp;
+          Dijagnostika</p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-red">
+            <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Zakaži Termin
+          </a>
+          <a href="#services" class="btn btn-outline">
+            <i class="fa-solid fa-list" aria-hidden="true"></i> Naše Usluge
+          </a>
+        </div>
+
+        <div class="hero-stats" role="list">
+          <div class="hero-stat" role="listitem">
+            <div class="num" aria-label="Više od 2 godine iskustva">2+</div>
+            <div class="lbl">Godine iskustva</div>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="num" aria-label="Više od 500 vozila tuningovana">500+</div>
+            <div class="lbl">Vozila tuningovana</div>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="num" aria-label="830 pratilaca na Instagramu">830</div>
+            <div class="lbl">Pratilaca na IG</div>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <div class="num" aria-label="100 posto zadovoljnih klijenata">100%</div>
+            <div class="lbl">Zadovoljnih klijenata</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════ -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+
+          <div class="about-visual fade-up">
+            <div class="about-img-wrap">
+              <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#111 0%,#1a1a1a 60%,#200507 100%);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;border:1px solid rgba(230,57,70,.18);">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:.12em;color:#f2f2f2;line-height:1;">EMA<span style="color:#e63946;">CHIP</span>TUNING</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7a7a7a;">Profesionalni ECU Remap · Visoko, BiH</div>
+                <div style="display:flex;gap:24px;margin-top:8px;">
+                  <div style="text-align:center;">
+                    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#e63946;line-height:1;">K-TAG</div>
+                    <div style="font-size:.65rem;letter-spacing:.14em;color:#7a7a7a;text-transform:uppercase;">Bench Tool</div>
+                  </div>
+                  <div style="width:1px;background:rgba(255,255,255,.07);"></div>
+                  <div style="text-align:center;">
+                    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#e63946;line-height:1;">FleX</div>
+                    <div style="font-size:.65rem;letter-spacing:.14em;color:#7a7a7a;text-transform:uppercase;">OBD Tool</div>
+                  </div>
+                  <div style="width:1px;background:rgba(255,255,255,.07);"></div>
+                  <div style="text-align:center;">
+                    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#e63946;line-height:1;">Stage1</div>
+                    <div style="font-size:.65rem;letter-spacing:.14em;color:#7a7a7a;text-transform:uppercase;">Remap</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="about-badge" aria-hidden="true">
+              <div class="num">ECU</div>
+              <div class="lbl">Remapping</div>
+            </div>
+          </div>
+
+          <div class="fade-up" style="transition-delay:.18s;">
+            <div class="section-label">O nama</div>
+            <h2 class="section-title" id="about-title">Vaš tuning <span class="accent">partner</span><br>u Visokom</h2>
+            <p class="section-desc" style="margin-bottom:16px;">
+              EMA ChipTuning je specijalizovani servis za softversko podešavanje motornih vozila smješten u Visokom,
+              BiH. Koristimo profesionalnu opremu Magic Motorsport i FleX alate koji omogućavaju precizno i sigurno
+              reprogramiranje upravljačke jedinice vašeg vozila.
+            </p>
+            <!-- TODO: dodati duži opis priče firme, osnivač, misija -->
+            <p class="section-desc">
+              Nudimo usluge za putnička i teretna vozila, kao i za quad/ATV vozila. Svaki posao radimo pažljivo, uz
+              backup originalne mape i garanciju na obavljenu uslugu.
+            </p>
+            <div class="about-features" role="list">
+              <div class="about-feature" role="listitem"><i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+                Magic Motorsport profesionalna oprema</div>
+              <div class="about-feature" role="listitem"><i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+                FleX ECU alat — industrijski standard</div>
+              <div class="about-feature" role="listitem"><i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+                Teretna i putnička vozila</div>
+              <div class="about-feature" role="listitem"><i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+                Programi za quad/ATV vozila</div>
+              <div class="about-feature" role="listitem"><i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+                Zakazivanje termina — brz odgovor</div>
+            </div>
+            <div style="margin-top:30px;">
+              <a href="#contact" class="btn btn-red">
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Kontaktirajte nas
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       CALCULATOR
+  ══════════════════════════════════════ -->
+    <section id="calculator" aria-labelledby="calc-title" style="background:var(--bg-card);">
+      <div class="container">
+        <div class="fade-up" style="text-align:center;margin-bottom:48px;">
+          <div class="section-label">Kalkulator</div>
+          <h2 class="section-title" id="calc-title">Stage 1 <span class="accent">procjena</span></h2>
+          <p class="section-desc">Odaberi marku, model, godište i motor — odmah dobiješ procjenu Stage 1 dobitaka, dostupne alate i preporučene usluge za tvoje vozilo.</p>
+        </div>
+
+        <div class="calc-card fade-up">
+
+          <!-- Row 1: Make -->
+          <div class="calc-row calc-sel-group" id="grpMake">
+            <div class="calc-row-lbl"><i class="fa-solid fa-car-side"></i> Marka</div>
+            <div class="calc-sel-wrap">
+              <select id="selMake" aria-label="Odaberite marku vozila">
+                <option value="">Učitava se...</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 2: Model -->
+          <div class="calc-row calc-sel-group disabled" id="grpModel">
+            <div class="calc-row-lbl"><i class="fa-solid fa-car"></i> Model</div>
+            <div class="calc-sel-wrap">
+              <select id="selModel" aria-label="Odaberite model vozila" disabled>
+                <option value="">— Odaberite marku prvo —</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 3: Year -->
+          <div class="calc-row calc-sel-group disabled" id="grpYear">
+            <div class="calc-row-lbl"><i class="fa-regular fa-calendar"></i> Godište</div>
+            <div class="calc-sel-wrap">
+              <select id="selYear" aria-label="Odaberite godište vozila" disabled>
+                <option value="">— Odaberite model prvo —</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 4: Engine & Power -->
+          <div class="calc-engine-row calc-sel-group disabled" id="grpEngine">
+            <div class="calc-engine-lbl"><i class="fa-solid fa-gears"></i> Motor &amp; snaga</div>
+            <div class="calc-engine-fields">
+              <div>
+                <div class="calc-field-lbl">Gorivo</div>
+                <div class="calc-sel-wrap">
+                  <select id="selFuel" disabled>
+                    <option value="">— Gorivo —</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="turbo">Benzin Turbo</option>
+                    <option value="atmo">Benzin Atmosferski</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div class="calc-field-lbl">Snaga (PS / KS)</div>
+                <input type="number" id="inpPS" class="calc-power-inp" placeholder="npr. 150" min="40" max="1200" disabled aria-label="Fabrička snaga motora u PS">
+              </div>
+              <div>
+                <div class="calc-field-lbl">Moment Nm <span style="font-size:.7rem;opacity:.6;">(opcija)</span></div>
+                <input type="number" id="inpNm" class="calc-power-inp" placeholder="npr. 320" min="0" max="2000" disabled aria-label="Fabrički moment motora u Nm">
+              </div>
+              <div>
+                <button type="button" id="btnCalc" class="btn btn-red" disabled>
+                  <i class="fa-solid fa-calculator"></i> Izračunaj
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div id="calcResults" style="display:none;margin-top:32px;"></div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       SERVICES
+  ══════════════════════════════════════ -->
+    <section id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services-header fade-up">
+          <div>
+            <div class="section-label">Usluge</div>
+            <h2 class="section-title" id="services-title">Šta nudimo</h2>
+          </div>
+          <p class="section-desc">Kompletna ponuda softverskog tuninga za sve tipove vozila — od standardnog remapa do
+            naprednih off modifikacija.</p>
+        </div>
+
+        <div class="services-grid">
+
+          <article class="service-card popular fade-up" style="transition-delay:.04s;" aria-label="Chiptuning Stage 1">
+            <span class="service-tag hot" aria-label="Najpopularnije">Popularno</span>
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-bolt"></i></div>
+            <h3 class="service-card-title">Chiptuning Stage 1</h3>
+            <p class="service-card-desc">Optimizacija fabričke mape motora — povećanje snage i momenta bez hardverskih
+              izmjena. Idealno za svakodnevnu vožnju.</p>
+            <!-- TODO: dodati cijenu za Stage 1 -->
+          </article>
+
+          <article class="service-card popular fade-up" style="transition-delay:.08s;" aria-label="Chiptuning Stage 2">
+            <span class="service-tag hot">Premium</span>
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-gauge-high"></i></div>
+            <h3 class="service-card-title">Chiptuning Stage 2</h3>
+            <p class="service-card-desc">Agresivnija mapa snage za vozila s fizičkim modifikacijama (downpipe, intake,
+              intercooler). Maksimalni potencijal motora.</p>
+            <!-- TODO: dodati cijenu za Stage 2 -->
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.12s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-filter-circle-xmark"></i></div>
+            <h3 class="service-card-title">DPF OFF</h3>
+            <p class="service-card-desc">Softversko deaktiviranje filtra čestičnih tvari (DPF). Rješava probleme
+              začepljenja i upozorenja na instrument tabli.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.16s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-wind"></i></div>
+            <h3 class="service-card-title">EGR OFF</h3>
+            <p class="service-card-desc">Softversko deaktiviranje ventila za recirkulaciju izduvnih plinova. Čistiji
+              motor, bolja reakcija gasa i manja potrošnja.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.20s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-droplet-slash"></i></div>
+            <h3 class="service-card-title">AdBlue OFF</h3>
+            <p class="service-card-desc">Softversko deaktiviranje AdBlue sistema (SCR) za vozila kod kojih sistem pravi
+              probleme ili je oštećen.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.24s;">
+            <span class="service-tag hot">Fun</span>
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-fire-flame-curved"></i></div>
+            <h3 class="service-card-title">Pop &amp; Bangs</h3>
+            <p class="service-card-desc">Pucketanje iz auspuha pri otpuštanju gasa — sportski zvučni efekt koji daje
+              vozilu karakter. Softverska modifikacija.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.28s;">
+            <span class="service-tag hot">Fun</span>
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-scissors"></i></div>
+            <h3 class="service-card-title">Hard Cut / Rev Limiter</h3>
+            <p class="service-card-desc">Tvrdi limitator broja obrtaja — karakteristično pucanje pri dostizanju crvene
+              lieje. Klasičan sportski efekt.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.32s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-thermometer-half"></i></div>
+            <h3 class="service-card-title">Hot &amp; Cold Start Fix</h3>
+            <p class="service-card-desc">Rješavanje problema s paljenjem motora na visokim ili niskim temperaturama.
+              Optimizacija startnih parametara.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.36s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-flag-checkered"></i></div>
+            <h3 class="service-card-title">Launch Control</h3>
+            <p class="service-card-desc">Sistem za kontrolisani start — maksimalna trakcija od mjesta uz minimalnu
+              vrtnju kotača. Idealno za stazu.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.40s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-tachometer-alt"></i></div>
+            <h3 class="service-card-title">VMAX OFF</h3>
+            <p class="service-card-desc">Uklanjanje softverskog ograničenja brzine (speed limiter). Vozilo dostiže svoju
+              fizičku maksimalnu brzinu.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.44s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-lock-open"></i></div>
+            <h3 class="service-card-title">IMMO OFF</h3>
+            <p class="service-card-desc">Softversko deaktiviranje imobilajzera. Rješenje za slučajeve gubitka ključa ili
+              kvara sistema protiv krađe.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.48s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-wave-square"></i></div>
+            <h3 class="service-card-title">O2 / Lambda OFF</h3>
+            <p class="service-card-desc">Deaktiviranje lambda senzora u softveru. Potrebno nakon ugradnje straight-pipe
+              ili sports katalizatora.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.52s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
+            <h3 class="service-card-title">VAG Coding / Adaptacija</h3>
+            <p class="service-card-desc">Kodiranje i adaptacija za VW, Audi, Škoda, SEAT vozila. Aktivacija skrivenih
+              funkcija, kalibracija senzora.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.56s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-stethoscope"></i></div>
+            <h3 class="service-card-title">Kompletna Dijagnostika</h3>
+            <p class="service-card-desc">Profesionalno čitanje grešaka i analiza stanja vozila pomoću FleX i Magic
+              Motorsport dijagnostičke opreme.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.60s;">
+            <span class="service-tag gray">ATV</span>
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-person-biking"></i></div>
+            <h3 class="service-card-title">Program za Quad-ove</h3>
+            <p class="service-card-desc">Remap za povećanje snage motora + VMAX OFF (uklanjanje blokade brzine) za
+              ATV/quad vozila svih brendova.</p>
+          </article>
+
+          <article class="service-card fade-up" style="transition-delay:.64s;">
+            <div class="service-card-icon" aria-hidden="true"><i class="fa-solid fa-circle-half-stroke"></i></div>
+            <h3 class="service-card-title">Promjena Satova i Kazaljki</h3>
+            <p class="service-card-desc">Promjena osvjetljenja satova, boje kazaljki i aktivacija Needle Sweep
+              animacije. Vizualna personalizacija interijera.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       WHY US
+  ══════════════════════════════════════ -->
+    <section id="why" aria-labelledby="why-title">
+      <div class="container">
+        <div class="why-grid">
+
+          <div class="fade-up">
+            <div class="section-label">Zašto mi</div>
+            <h2 class="section-title" id="why-title">Razlozi za <span class="accent">odabir</span></h2>
+            <p class="section-desc">Kombinacija profesionalne opreme, iskustva i posvećenosti čini nas pouzdanim
+              partnerom za svako vozilo.</p>
+            <div class="why-cards">
+              <div class="why-card">
+                <i class="fa-solid fa-microchip" aria-hidden="true"></i>
+                <h3>Pro Oprema</h3>
+                <p>Magic Motorsport & FleX — industrijski standard za ECU remap na svim vozilima.</p>
+              </div>
+              <div class="why-card">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                <h3>Sigurnost</h3>
+                <p>Backup originalne mape prije svakog posla. Uvijek možemo vratiti na fabrički software.</p>
+              </div>
+              <div class="why-card">
+                <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
+                <h3>Brza Usluga</h3>
+                <p>Većina usluga završava se isti dan. Zakaži termin i dođi u dogovoreno vrijeme.</p>
+              </div>
+              <div class="why-card">
+                <i class="fa-solid fa-headset" aria-hidden="true"></i>
+                <h3>Podrška</h3>
+                <p>Dostupni smo na Viberu i WhatsAppu. Odgovaramo brzo na sva vaša pitanja.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="why-stats fade-up" style="transition-delay:.2s;">
+            <div class="why-stat-row">
+              <div class="num" aria-label="Više od 2 godine">2+</div>
+              <div class="info">
+                <h4>Godine iskustva</h4>
+                <p>Specijalizovani chiptuning servis od osnivanja 2024.</p>
+              </div>
+            </div>
+            <div class="why-stat-row">
+              <div class="num" aria-label="Više od 15 usluga">15+</div>
+              <div class="info">
+                <h4>Različitih usluga</h4>
+                <p>Od Stage 1 do advanced off-modifikacija za sve tipove vozila.</p>
+              </div>
+            </div>
+            <div class="why-stat-row">
+              <div class="num">100%</div>
+              <div class="info">
+                <h4>Zadovoljni klijenti</h4>
+                <!-- TODO: dodati broj recenzija ili platformu -->
+                <p>Transparentnost i kvalitet svakog posla su naš prioritet.</p>
+              </div>
+            </div>
+            <div>
+              <p
+                style="font-family:var(--font-s);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;">
+                Koristimo opremu</p>
+              <div class="equip-bar">
+                <div class="equip-pill"><i class="fa-solid fa-microchip" aria-hidden="true"></i> Magic Motorsport</div>
+                <div class="equip-pill"><i class="fa-solid fa-plug" aria-hidden="true"></i> FleX Tool</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       GALLERY / BRANDS
+  ══════════════════════════════════════ -->
+    <section id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="fade-up" style="text-align:center;margin-bottom:56px;">
+          <div class="section-label" style="justify-content:center;">Podržavamo</div>
+          <h2 class="section-title" id="gallery-title">Vozila &amp; <span class="accent">Brendovi</span></h2>
+          <p class="section-desc" style="margin:0 auto;text-align:center;">Radimo na svim popularnim brendovima — osobna
+            vozila, kombi, kamion i quad.</p>
+        </div>
+
+        <p class="brands-sublabel">Putnička i teretna vozila</p>
+        <div class="brands-grid fade-up" role="list">
+          <span class="brand-pill" role="listitem">Volkswagen</span>
+          <span class="brand-pill" role="listitem">Audi</span>
+          <span class="brand-pill" role="listitem">BMW</span>
+          <span class="brand-pill" role="listitem">Mercedes-Benz</span>
+          <span class="brand-pill" role="listitem">Škoda</span>
+          <span class="brand-pill" role="listitem">SEAT</span>
+          <span class="brand-pill" role="listitem">Opel</span>
+          <span class="brand-pill" role="listitem">Ford</span>
+          <span class="brand-pill" role="listitem">Renault</span>
+          <span class="brand-pill" role="listitem">Peugeot</span>
+          <span class="brand-pill" role="listitem">Citroën</span>
+          <span class="brand-pill" role="listitem">Fiat</span>
+          <span class="brand-pill" role="listitem">Toyota</span>
+          <span class="brand-pill" role="listitem">Hyundai</span>
+          <span class="brand-pill" role="listitem">Kia</span>
+          <span class="brand-pill" role="listitem">Volvo</span>
+          <!-- TODO: dodati sve brendove koje rade -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════ -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:56px;">
+          <div class="section-label">Kontakt</div>
+          <h2 class="section-title" id="contact-title">Zakažite <span class="accent">termin</span></h2>
+          <p class="section-desc">Pišite nam ili nazovite — javit ćemo se što prije i dogovoriti sve detalje.</p>
+        </div>
+
+        <div class="contact-grid">
+
+          <!-- Info column -->
+          <div class="contact-info fade-up">
+
+            <div class="contact-block">
+              <h3>Direktni kontakt</h3>
+              <div class="contact-item">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                <a href="tel:+387644032251">+387 644 032 251</a>
+              </div>
+              <div class="contact-item">
+                <i class="fa-brands fa-viber" style="color:#7360f2;" aria-hidden="true"></i>
+                <a href="viber://chat?number=%2B387644032251">Viber: +387 644 032 251</a>
+              </div>
+              <div class="contact-item">
+                <i class="fa-brands fa-whatsapp" style="color:#25d366;" aria-hidden="true"></i>
+                <a href="https://wa.me/387644032251" target="_blank" rel="noopener noreferrer">WhatsApp: +387 644 032
+                  251</a>
+              </div>
+              <!-- TODO: dodati email adresu -->
+              <div class="contact-item">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <span style="color:var(--dim);font-style:italic;"><!-- TODO: email@emachiptuning.ba --></span>
+              </div>
+            </div>
+
+            <div class="contact-block">
+              <h3>Lokacija</h3>
+              <div class="contact-item">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                <!-- TODO: precizna adresa ulice -->
+                <span>Visoko, Bosna i Hercegovina 71304</span>
+              </div>
+            </div>
+
+            <div class="contact-block">
+              <h3>Radno vrijeme</h3>
+              <div class="contact-item">
+                <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                <span>Po dogovoru — dostupni smo 24/7, uključujući vikendom i noću</span>
+              </div>
+            </div>
+
+            <div class="contact-block">
+              <h3>Pratite nas</h3>
+              <div class="social-row">
+                <a href="https://instagram.com/emachiptuning" target="_blank" rel="noopener noreferrer"
+                  class="social-btn ig" aria-label="Instagram profil emachiptuning">
+                  <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                </a>
+                <a href="https://facebook.com/EMAchiptuning" target="_blank" rel="noopener noreferrer"
+                  class="social-btn fb" aria-label="Facebook stranica EMAchiptuning">
+                  <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.tiktok.com/@emachiptuning" target="_blank" rel="noopener noreferrer"
+                  class="social-btn tt" aria-label="TikTok profil emachiptuning">
+                  <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+                </a>
+                <a href="https://wa.me/387644032251" target="_blank" rel="noopener noreferrer" class="social-btn wa"
+                  aria-label="WhatsApp kontakt">
+                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <a href="viber://chat?number=%2B387644032251" class="social-btn vi" aria-label="Viber kontakt">
+                  <i class="fa-brands fa-viber" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Map -->
+            <div class="map-container">
+              <!-- TODO: zamijeniti s embed linkom za tačnu adresu ulice -->
+              <iframe src="https://www.google.com/maps?q=24MQ%2BHFF+Visoko+Bosnia&output=embed" allowfullscreen
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="EMA ChipTuning lokacija u Visokom"
+                aria-label="Google mapa lokacije EMA ChipTuning u Visokom">
+              </iframe>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer>
+    <div class="container footer-inner">
+      <a href="#hero" class="footer-logo">EMA<span class="chip">CHIP</span>TUNING</a>
+      <p class="footer-copy">
+        &copy; <span id="year"></span> EMA ChipTuning &nbsp;·&nbsp; Visoko, BiH &nbsp;·&nbsp; Sva prava zadržana
+      </p>
+      <div class="footer-social">
+        <a href="https://instagram.com/emachiptuning" target="_blank" rel="noopener noreferrer" class="social-btn ig"
+          aria-label="Instagram">
+          <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="https://facebook.com/EMAchiptuning" target="_blank" rel="noopener noreferrer" class="social-btn fb"
+          aria-label="Facebook">
+          <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.tiktok.com/@emachiptuning" target="_blank" rel="noopener noreferrer" class="social-btn tt"
+          aria-label="TikTok">
+          <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+        </a>
+        <a href="https://wa.me/387644032251" target="_blank" rel="noopener noreferrer" class="social-btn wa"
+          aria-label="WhatsApp">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="back-to-top" aria-label="Vrati se na vrh stranice">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- TOAST -->
+  <div id="toast" role="status" aria-live="polite" aria-atomic="true">
+    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+    Upit uspješno poslan! Javit ćemo vam se uskoro.
+  </div>
+
+  <!-- ══════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════ -->
+  <script>
+    'use strict';
+
+    // ── Year ──
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Scroll progress bar ──
+    const progressBar = document.getElementById('progress-bar');
+    function updateProgress() {
+      const doc = document.documentElement;
+      const total = doc.scrollHeight - doc.clientHeight;
+      const pct = total > 0 ? (window.scrollY / total) * 100 : 0;
+      progressBar.style.width = pct + '%';
+    }
+
+    // ── Back to top ──
+    const btt = document.getElementById('back-to-top');
+    function updateBtt() {
+      btt.classList.toggle('visible', window.scrollY > 400);
+    }
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ── Navbar scroll ──
+    const navbar = document.getElementById('navbar');
+    function updateNav() {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }
+
+    // ── Single passive scroll listener ──
+    window.addEventListener('scroll', () => {
+      updateProgress();
+      updateBtt();
+      updateNav();
+    }, { passive: true });
+
+    // Run once on load
+    updateProgress(); updateBtt(); updateNav();
+
+    // ── Hamburger / Mobile menu ──
+    const ham = document.getElementById('hamburger');
+    const mMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    function openMenu() {
+      menuOpen = true;
+      ham.setAttribute('aria-expanded', 'true');
+      ham.setAttribute('aria-label', 'Zatvori meni');
+      mMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Focus first link for keyboard nav
+      const firstLink = mMenu.querySelector('a');
+      if (firstLink) setTimeout(() => firstLink.focus(), 50);
+    }
+    function closeMenu() {
+      menuOpen = false;
+      ham.setAttribute('aria-expanded', 'false');
+      ham.setAttribute('aria-label', 'Otvori meni');
+      mMenu.classList.remove('open');
+      document.body.style.overflow = '';
+      ham.focus();
+    }
+
+    ham.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
+
+    // Close on link click
+    mMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => { if (menuOpen) closeMenu(); });
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && menuOpen) closeMenu();
+    });
+
+    // ── Active nav on scroll ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    function updateActiveNav() {
+      const scrollY = window.scrollY + 120;
+      let current = '';
+      sections.forEach(s => { if (s.offsetTop <= scrollY) current = s.id; });
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+    }
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
+
+    // ── Fade-up on scroll ──
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const fadeObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    fadeEls.forEach(el => fadeObserver.observe(el));
+  </script>
+
+  <!-- TUNING CALCULATOR — NHTSA vPIC API -->
+  <script>
+  (function () {
+    const NHTSA = 'https://vpic.nhtsa.dot.gov/api/vehicles';
+    const POPULAR = new Set(['VOLKSWAGEN','AUDI','BMW','MERCEDES-BENZ','SKODA','SEAT','OPEL',
+      'FORD','RENAULT','PEUGEOT','CITROEN','FIAT','TOYOTA','HYUNDAI','KIA','VOLVO','DACIA',
+      'ALFA ROMEO','MITSUBISHI','LAND ROVER','PORSCHE','HONDA','MAZDA','NISSAN','SUZUKI',
+      'SUBARU','JEEP','CHEVROLET','DODGE','CUPRA','MERCEDES','VW']);
+    const VAG = new Set(['VOLKSWAGEN','VW','AUDI','SKODA','SEAT','CUPRA','PORSCHE']);
+
+    const selMake  = document.getElementById('selMake');
+    const selModel = document.getElementById('selModel');
+    const selYear  = document.getElementById('selYear');
+    const selFuel  = document.getElementById('selFuel');
+    const inpPS    = document.getElementById('inpPS');
+    const inpNm    = document.getElementById('inpNm');
+    const btnCalc  = document.getElementById('btnCalc');
+    const grpModel = document.getElementById('grpModel');
+    const grpYear  = document.getElementById('grpYear');
+    const grpEngine= document.getElementById('grpEngine');
+    const results  = document.getElementById('calcResults');
+
+    function enable(el)  { el.disabled = false; el.closest('.calc-sel-group').classList.add('active'); }
+    function disable(el) { el.disabled = true;  el.closest('.calc-sel-group')?.classList.remove('active'); }
+
+    async function initCalc() {
+      try {
+        const r = await fetch(NHTSA + '/GetAllMakes?format=json');
+        const j = await r.json();
+        const makes = j.Results
+          .map(m => m.Make_Name.toUpperCase())
+          .filter(m => POPULAR.has(m));
+        const unique = [...new Set(makes)].sort();
+        selMake.innerHTML = '<option value="">— Odaberite marku —</option>' +
+          unique.map(m => `<option value="${m}">${m.charAt(0)+m.slice(1).toLowerCase()}</option>`).join('');
+        enable(selMake);
+      } catch {
+        selMake.innerHTML = '<option value="">Greška — osvježite stranicu</option>';
+      }
+    }
+
+    selMake.addEventListener('change', async () => {
+      const make = selMake.value;
+      selModel.innerHTML = '<option value="">Učitava se...</option>';
+      disable(selModel); disable(selYear); disable(selFuel); disable(inpPS); disable(inpNm); disable(btnCalc);
+      results.style.display = 'none';
+      grpModel.classList.remove('active'); grpYear.classList.remove('active'); grpEngine.classList.remove('active');
+      if (!make) return;
+      try {
+        const r = await fetch(NHTSA + '/GetModelsForMake/' + encodeURIComponent(make) + '?format=json');
+        const j = await r.json();
+        const models = [...new Set(j.Results.map(m => m.Model_Name))].sort();
+        selModel.innerHTML = '<option value="">— Odaberite model —</option>' +
+          models.map(m => `<option value="${m}">${m}</option>`).join('');
+        enable(selModel);
+        grpModel.classList.add('active');
+      } catch {
+        selModel.innerHTML = '<option value="">Greška pri učitavanju</option>';
+      }
+    });
+
+    selModel.addEventListener('change', () => {
+      disable(selYear); disable(selFuel); disable(inpPS); disable(inpNm); disable(btnCalc);
+      results.style.display = 'none';
+      grpYear.classList.remove('active'); grpEngine.classList.remove('active');
+      if (!selModel.value) return;
+      const yr = new Date().getFullYear();
+      selYear.innerHTML = '<option value="">— Odaberite godište —</option>' +
+        Array.from({length: yr - 1989}, (_, i) => yr - i)
+          .map(y => `<option value="${y}">${y}</option>`).join('');
+      enable(selYear);
+      grpYear.classList.add('active');
+    });
+
+    selYear.addEventListener('change', () => {
+      if (!selYear.value) return;
+      enable(selFuel); enable(inpPS); enable(inpNm);
+      grpEngine.classList.add('active');
+      selFuel.disabled = false; inpPS.disabled = false; inpNm.disabled = false;
+      checkCalcReady();
+    });
+
+    [selFuel, inpPS].forEach(el => el.addEventListener('change', checkCalcReady));
+    [selFuel, inpPS].forEach(el => el.addEventListener('input', checkCalcReady));
+
+    function checkCalcReady() {
+      if (selFuel.value && inpPS.value && parseFloat(inpPS.value) >= 40) {
+        btnCalc.disabled = false;
+      } else {
+        btnCalc.disabled = true;
+      }
+    }
+
+    btnCalc.addEventListener('click', showResults);
+
+    function showResults() {
+      const make  = selMake.value;
+      const model = selModel.value;
+      const year  = selYear.value;
+      const fuel  = selFuel.value;
+      const ps    = parseFloat(inpPS.value) || 0;
+      const nm    = parseFloat(inpNm.value) || 0;
+      if (!fuel || ps < 40) return;
+
+      const gains = { diesel: [.28,.25], turbo: [.22,.20], atmo: [.08,.06] };
+      const [gPs, gNm] = gains[fuel] || [.15,.12];
+      const s1ps = Math.round(ps * (1 + gPs));
+      const s1nm = nm ? Math.round(nm * (1 + gNm)) : 0;
+      const isDiesel = fuel === 'diesel';
+      const isVAG    = VAG.has(make);
+
+      const tools = [
+        { icon: 'fa-microchip',  label: 'K-TAG',        show: true,      info: 'Bench ECU programiranje — direktna veza sa ECU modulom' },
+        { icon: 'fa-plug-circle-bolt', label: 'K-ESS',  show: true,      info: 'OBD tuning alat — brzo programiranje kroz OBD bez demontaže ECU-a' },
+        { icon: 'fa-stethoscope',label: 'Dijagnostika',  show: true,      info: 'Čitanje grešaka i analiza stanja vozila na profesionalnoj opremi' },
+        { icon: 'fa-wrench',     label: 'Fizičko uklanjanje DPF', show: isDiesel, info: 'Vađenje filtera čestica + DPF OFF softver' },
+      ].filter(t => t.show);
+
+      const services = [
+        'Chiptuning Stage 1',
+        isDiesel && 'DPF OFF',
+        isDiesel && 'EGR OFF',
+        isDiesel && 'AdBlue OFF',
+        'Pop & Bangs',
+        'VMAX OFF',
+        isVAG && 'VAG Coding / Adaptacija',
+        'Kompletna Dijagnostika',
+      ].filter(Boolean);
+
+      results.style.display = 'block';
+      results.innerHTML = `
+        <div class="cr-cols">
+          <div class="cr-col">
+            <div class="cr-col-lbl">Stock — fabrička vrijednosti</div>
+            <div class="cr-stat"><div class="cr-stat-lbl">Snaga</div><div class="cr-stat-val">${ps} PS</div></div>
+            ${nm ? `<div class="cr-stat"><div class="cr-stat-lbl">Moment</div><div class="cr-stat-val">${nm} Nm</div></div>` : ''}
+          </div>
+          <div class="cr-col stage1">
+            <div class="cr-col-lbl">Stage 1 — procjena dobitaka</div>
+            <div class="cr-stat"><div class="cr-stat-lbl">Snaga</div><div class="cr-stat-val">${s1ps} PS <span class="gain">+${s1ps-ps} PS</span></div></div>
+            ${nm ? `<div class="cr-stat"><div class="cr-stat-lbl">Moment</div><div class="cr-stat-val">${s1nm} Nm <span class="gain">+${s1nm-nm} Nm</span></div></div>` : ''}
+          </div>
+        </div>
+        <div class="cr-tools">
+          <div class="cr-block-lbl">Dostupni alati</div>
+          ${tools.map(t => `<div class="cr-tool-item"><i class="fa-solid ${t.icon}"></i><div class="cr-tool-info"><strong>${t.label}</strong><span>${t.info}</span></div></div>`).join('')}
+        </div>
+        <div class="cr-block-lbl">Preporučene usluge za ovo vozilo</div>
+        <div class="cr-services">${services.map(s => `<span class="cr-svc-pill">${s}</span>`).join('')}</div>
+        <div class="cr-actions">
+          <a href="#contact" class="btn btn-red"><i class="fa-solid fa-calendar-check"></i> Zakaži termin</a>
+        </div>
+        <p class="cr-note">* Procjena je indikativna — stvarni dobitak ovisi o stanju vozila i originalnoj kalibraciji ECU-a.</p>
+      `;
+    }
+
+    initCalc();
+  })();
+  </script>
+</body>
+
+</html>
