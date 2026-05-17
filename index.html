@@ -2262,7 +2262,7 @@
             <div class="calc-row-lbl"><i class="fa-solid fa-car-side"></i> Marka</div>
             <div class="calc-sel-wrap">
               <select id="selMake" aria-label="Odaberite marku vozila">
-                <option value="">Učitava se...</option>
+                <option value="">— Odaberite marku —</option>
               </select>
             </div>
           </div>
@@ -2277,44 +2277,13 @@
             </div>
           </div>
 
-          <!-- Row 3: Year -->
-          <div class="calc-row calc-sel-group disabled" id="grpYear">
-            <div class="calc-row-lbl"><i class="fa-regular fa-calendar"></i> Godište</div>
+          <!-- Row 3: Engine -->
+          <div class="calc-row calc-sel-group disabled" id="grpEngine">
+            <div class="calc-row-lbl"><i class="fa-solid fa-gears"></i> Motor</div>
             <div class="calc-sel-wrap">
-              <select id="selYear" aria-label="Odaberite godište vozila" disabled>
+              <select id="selEngine" aria-label="Odaberite motor" disabled>
                 <option value="">— Odaberite model prvo —</option>
               </select>
-            </div>
-          </div>
-
-          <!-- Row 4: Engine & Power -->
-          <div class="calc-engine-row calc-sel-group disabled" id="grpEngine">
-            <div class="calc-engine-lbl"><i class="fa-solid fa-gears"></i> Motor &amp; snaga</div>
-            <div class="calc-engine-fields">
-              <div>
-                <div class="calc-field-lbl">Gorivo</div>
-                <div class="calc-sel-wrap">
-                  <select id="selFuel" disabled>
-                    <option value="">— Gorivo —</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="turbo">Benzin Turbo</option>
-                    <option value="atmo">Benzin Atmosferski</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <div class="calc-field-lbl">Snaga (PS / KS)</div>
-                <input type="number" id="inpPS" class="calc-power-inp" placeholder="npr. 150" min="40" max="1200" disabled aria-label="Fabrička snaga motora u PS">
-              </div>
-              <div>
-                <div class="calc-field-lbl">Moment Nm <span style="font-size:.7rem;opacity:.6;">(opcija)</span></div>
-                <input type="number" id="inpNm" class="calc-power-inp" placeholder="npr. 320" min="0" max="2000" disabled aria-label="Fabrički moment motora u Nm">
-              </div>
-              <div>
-                <button type="button" id="btnCalc" class="btn btn-red" disabled>
-                  <i class="fa-solid fa-calculator"></i> Izračunaj
-                </button>
-              </div>
             </div>
           </div>
 
@@ -2817,123 +2786,443 @@
     fadeEls.forEach(el => fadeObserver.observe(el));
   </script>
 
-  <!-- TUNING CALCULATOR — NHTSA vPIC API -->
+  <!-- TUNING CALCULATOR — Static ECU DB -->
   <script>
   (function () {
-    const NHTSA = 'https://vpic.nhtsa.dot.gov/api/vehicles';
-    const POPULAR = new Set(['VOLKSWAGEN','AUDI','BMW','MERCEDES-BENZ','SKODA','SEAT','OPEL',
-      'FORD','RENAULT','PEUGEOT','CITROEN','FIAT','TOYOTA','HYUNDAI','KIA','VOLVO','DACIA',
-      'ALFA ROMEO','MITSUBISHI','LAND ROVER','PORSCHE','HONDA','MAZDA','NISSAN','SUZUKI',
-      'SUBARU','JEEP','CHEVROLET','DODGE','CUPRA','MERCEDES','VW']);
-    const VAG = new Set(['VOLKSWAGEN','VW','AUDI','SKODA','SEAT','CUPRA','PORSCHE']);
+    /* ── Vehicle + ECU database ── */
+    const DB = [
+      // ── VOLKSWAGEN ──────────────────────────────────────────────────────
+      {make:'Volkswagen',model:'Golf IV (1997–2003)',engines:[
+        {e:'1.9 TDI 66kW / 90ps',kw:66,ps:90,nm:210,f:'diesel',ecu:'Bosch EDC15P+',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 TDI 74kW / 100ps',kw:74,ps:100,nm:240,f:'diesel',ecu:'Bosch EDC15P+',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 TDI 85kW / 115ps',kw:85,ps:115,nm:285,f:'diesel',ecu:'Bosch EDC15P+ / EDC15VM+',tools:['K-TAG','FleX OBD']},
+        {e:'1.8T 110kW / 150ps',kw:110,ps:150,nm:210,f:'turbo',ecu:'Bosch ME7.5',tools:['K-TAG','FleX OBD']},
+        {e:'1.8T GTI 132kW / 180ps',kw:132,ps:180,nm:235,f:'turbo',ecu:'Bosch ME7.5',tools:['K-TAG','FleX OBD']},
+        {e:'2.3 V5 110kW / 150ps',kw:110,ps:150,nm:205,f:'atmo',ecu:'Bosch ME7.1',tools:['K-TAG']},
+      ]},
+      {make:'Volkswagen',model:'Golf V (2003–2008)',engines:[
+        {e:'1.9 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 90kW / 122ps',kw:90,ps:122,nm:200,f:'turbo',ecu:'Bosch MED17.5',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 FSI 110kW / 150ps',kw:110,ps:150,nm:200,f:'atmo',ecu:'Bosch MED9.5.10',tools:['K-TAG']},
+        {e:'2.0 GTI 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED9.5.10',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Volkswagen',model:'Golf VI (2008–2012)',engines:[
+        {e:'1.6 TDI 66kW / 90ps',kw:66,ps:90,nm:230,f:'diesel',ecu:'Delphi DCM3.5',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Delphi DCM3.5',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 81kW / 110ps',kw:81,ps:110,nm:250,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 90kW / 122ps',kw:90,ps:122,nm:200,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 118kW / 160ps',kw:118,ps:160,nm:240,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 GTI 155kW / 210ps',kw:155,ps:210,nm:280,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Volkswagen',model:'Golf VII (2012–2020)',engines:[
+        {e:'1.6 TDI 66kW / 90ps',kw:66,ps:90,nm:230,f:'diesel',ecu:'Delphi DCM6.2',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Delphi DCM6.2',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 81kW / 110ps',kw:81,ps:110,nm:250,f:'diesel',ecu:'Bosch EDC17C74',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Bosch EDC17C74',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 135kW / 184ps',kw:135,ps:184,nm:380,f:'diesel',ecu:'Bosch EDC17C74',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.5.25',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TSI 132kW / 180ps',kw:132,ps:180,nm:250,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 GTI 162kW / 220ps',kw:162,ps:220,nm:350,f:'turbo',ecu:'Bosch MED17.5.25',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 GTI Performance 169kW / 230ps',kw:169,ps:230,nm:350,f:'turbo',ecu:'Bosch MED17.5.25',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 R 228kW / 310ps',kw:228,ps:310,nm:380,f:'turbo',ecu:'Bosch MED17.1.62',tools:['K-TAG']},
+      ]},
+      {make:'Volkswagen',model:'Passat B5 (1996–2005)',engines:[
+        {e:'1.9 TDI 74kW / 100ps',kw:74,ps:100,nm:240,f:'diesel',ecu:'Bosch EDC15',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 TDI 85kW / 115ps',kw:85,ps:115,nm:285,f:'diesel',ecu:'Bosch EDC15P+',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 TDI 96kW / 130ps',kw:96,ps:130,nm:310,f:'diesel',ecu:'Bosch EDC15P+',tools:['K-TAG','FleX OBD']},
+        {e:'2.5 V6 TDI 110kW / 150ps',kw:110,ps:150,nm:310,f:'diesel',ecu:'Bosch EDC15M',tools:['K-TAG']},
+        {e:'1.8T 110kW / 150ps',kw:110,ps:150,nm:210,f:'turbo',ecu:'Bosch ME7.5',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Volkswagen',model:'Passat B6 (2005–2010)',engines:[
+        {e:'1.9 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC17CP14',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TSI 118kW / 160ps',kw:118,ps:160,nm:250,f:'turbo',ecu:'Bosch MED17.5',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TSI 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED17.5',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Volkswagen',model:'Passat B7 (2010–2014)',engines:[
+        {e:'1.6 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Delphi DCM6.2',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 81kW / 110ps',kw:81,ps:110,nm:250,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 130kW / 177ps',kw:130,ps:177,nm:380,f:'diesel',ecu:'Bosch EDC17CP14',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TSI 118kW / 160ps',kw:118,ps:160,nm:250,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TSI 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Volkswagen',model:'Tiguan I (2007–2016)',engines:[
+        {e:'2.0 TDI 81kW / 110ps',kw:81,ps:110,nm:250,f:'diesel',ecu:'Bosch EDC17CP14',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC17CP14',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC17CP14',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TSI 132kW / 180ps',kw:132,ps:180,nm:280,f:'turbo',ecu:'Bosch MED17.5',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Volkswagen',model:'Transporter T5 (2003–2015)',engines:[
+        {e:'1.9 TDI 62kW / 84ps',kw:62,ps:84,nm:200,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 75kW / 102ps',kw:75,ps:102,nm:250,f:'diesel',ecu:'Bosch EDC17CP20',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 BiTDI 132kW / 180ps',kw:132,ps:180,nm:400,f:'diesel',ecu:'Bosch EDC17CP20',tools:['K-TAG','FleX OBD']},
+        {e:'2.5 TDI 128kW / 174ps',kw:128,ps:174,nm:400,f:'diesel',ecu:'Bosch EDC15VM+',tools:['K-TAG','FleX OBD']},
+      ]},
+      // ── ŠKODA ───────────────────────────────────────────────────────────
+      {make:'Škoda',model:'Octavia I (1996–2010)',engines:[
+        {e:'1.9 TDI 66kW / 90ps',kw:66,ps:90,nm:210,f:'diesel',ecu:'Bosch EDC15P+',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 TDI 74kW / 100ps',kw:74,ps:100,nm:240,f:'diesel',ecu:'Bosch EDC15P+',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 TDI 81kW / 110ps',kw:81,ps:110,nm:260,f:'diesel',ecu:'Bosch EDC15P+',tools:['K-TAG','FleX OBD']},
+        {e:'1.8T 92kW / 125ps',kw:92,ps:125,nm:175,f:'turbo',ecu:'Bosch ME7.5.10',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Škoda',model:'Octavia II (2004–2013)',engines:[
+        {e:'1.9 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.5.5',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TSI 118kW / 160ps',kw:118,ps:160,nm:250,f:'turbo',ecu:'Bosch MED17.5',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 RS 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED17.5',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Škoda',model:'Octavia III (2013–2020)',engines:[
+        {e:'1.6 TDI 66kW / 90ps',kw:66,ps:90,nm:230,f:'diesel',ecu:'Delphi DCM6.2',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Delphi DCM6.2',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 81kW / 110ps',kw:81,ps:110,nm:250,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.5.25',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TSI 132kW / 180ps',kw:132,ps:180,nm:250,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 RS 162kW / 220ps',kw:162,ps:220,nm:350,f:'turbo',ecu:'Bosch MED17.5.25',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Škoda',model:'Superb II/III (2008–2019)',engines:[
+        {e:'1.6 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Delphi DCM6.2',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC17CP14',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TSI 118kW / 160ps',kw:118,ps:160,nm:250,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TSI 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED17.5',tools:['K-TAG','FleX OBD']},
+      ]},
+      // ── AUDI ────────────────────────────────────────────────────────────
+      {make:'Audi',model:'A3 8P (2003–2012)',engines:[
+        {e:'1.9 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.5.5',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TSI 118kW / 160ps',kw:118,ps:160,nm:250,f:'turbo',ecu:'Bosch MED17.5',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TFSI 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED9.5.10',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 S3 195kW / 265ps',kw:195,ps:265,nm:350,f:'turbo',ecu:'Bosch MED9.5.10',tools:['K-TAG']},
+      ]},
+      {make:'Audi',model:'A3 8V (2012–2020)',engines:[
+        {e:'1.6 TDI 66kW / 90ps',kw:66,ps:90,nm:230,f:'diesel',ecu:'Delphi DCM6.2',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 81kW / 110ps',kw:81,ps:110,nm:250,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TFSI 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.5.25',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TFSI 132kW / 180ps',kw:132,ps:180,nm:250,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 S3 221kW / 300ps',kw:221,ps:300,nm:380,f:'turbo',ecu:'Bosch MED17.1.21',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Audi',model:'A4 B7 (2004–2008)',engines:[
+        {e:'1.9 TDI 85kW / 116ps',kw:85,ps:116,nm:285,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TFSI 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED9.5.10',tools:['K-TAG','FleX OBD']},
+        {e:'3.0 TDI 171kW / 233ps',kw:171,ps:233,nm:450,f:'diesel',ecu:'Bosch EDC16CP34',tools:['K-TAG']},
+      ]},
+      {make:'Audi',model:'A4 B8 (2007–2015)',engines:[
+        {e:'1.8 TFSI 88kW / 120ps',kw:88,ps:120,nm:230,f:'turbo',ecu:'Bosch MED17.1',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TFSI 118kW / 160ps',kw:118,ps:160,nm:250,f:'turbo',ecu:'Bosch MED17.1',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 88kW / 120ps',kw:88,ps:120,nm:290,f:'diesel',ecu:'Bosch EDC17C14',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 105kW / 143ps',kw:105,ps:143,nm:320,f:'diesel',ecu:'Bosch EDC17C14',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC17C14',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TFSI 132kW / 180ps',kw:132,ps:180,nm:270,f:'turbo',ecu:'Bosch MED17.1',tools:['K-TAG','FleX OBD']},
+        {e:'3.0 TDI 176kW / 240ps',kw:176,ps:240,nm:500,f:'diesel',ecu:'Bosch EDC17CP14',tools:['K-TAG']},
+      ]},
+      {make:'Audi',model:'A6 C6 (2004–2011)',engines:[
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC16U1',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 125kW / 170ps',kw:125,ps:170,nm:350,f:'diesel',ecu:'Bosch EDC16U1',tools:['K-TAG','FleX OBD']},
+        {e:'2.7 TDI 132kW / 180ps',kw:132,ps:180,nm:380,f:'diesel',ecu:'Bosch EDC16CP34',tools:['K-TAG']},
+        {e:'3.0 TDI 171kW / 233ps',kw:171,ps:233,nm:450,f:'diesel',ecu:'Bosch EDC16CP34',tools:['K-TAG']},
+        {e:'2.0 TFSI 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED9.5.10',tools:['K-TAG','FleX OBD']},
+      ]},
+      // ── BMW ─────────────────────────────────────────────────────────────
+      {make:'BMW',model:'Serija 3 E46 (1998–2005)',engines:[
+        {e:'318d 85kW / 115ps',kw:85,ps:115,nm:280,f:'diesel',ecu:'Bosch DDE4.0',tools:['K-TAG','FleX OBD']},
+        {e:'320d 100kW / 136ps',kw:100,ps:136,nm:300,f:'diesel',ecu:'Bosch DDE4.0',tools:['K-TAG','FleX OBD']},
+        {e:'330d 135kW / 184ps',kw:135,ps:184,nm:390,f:'diesel',ecu:'Bosch DDE5.0',tools:['K-TAG']},
+        {e:'318i 87kW / 118ps',kw:87,ps:118,nm:175,f:'atmo',ecu:'Siemens MS43',tools:['K-TAG']},
+        {e:'320i 110kW / 150ps',kw:110,ps:150,nm:200,f:'atmo',ecu:'Siemens MS43',tools:['K-TAG']},
+        {e:'325i 141kW / 192ps',kw:141,ps:192,nm:245,f:'atmo',ecu:'Siemens MS45',tools:['K-TAG']},
+        {e:'330i 170kW / 231ps',kw:170,ps:231,nm:300,f:'atmo',ecu:'Siemens MS45',tools:['K-TAG']},
+      ]},
+      {make:'BMW',model:'Serija 3 E90/E91 (2005–2012)',engines:[
+        {e:'316d 85kW / 116ps',kw:85,ps:116,nm:260,f:'diesel',ecu:'Bosch EDC17C06',tools:['K-TAG','FleX OBD']},
+        {e:'318d 90kW / 122ps',kw:90,ps:122,nm:280,f:'diesel',ecu:'Bosch EDC17C06',tools:['K-TAG','FleX OBD']},
+        {e:'320d 120kW / 163ps',kw:120,ps:163,nm:340,f:'diesel',ecu:'Bosch EDC17C06',tools:['K-TAG','FleX OBD']},
+        {e:'320d 130kW / 177ps',kw:130,ps:177,nm:350,f:'diesel',ecu:'Bosch EDC17C06',tools:['K-TAG','FleX OBD']},
+        {e:'325d 145kW / 197ps',kw:145,ps:197,nm:400,f:'diesel',ecu:'Bosch EDC17C06',tools:['K-TAG','FleX OBD']},
+        {e:'330d 180kW / 245ps',kw:180,ps:245,nm:500,f:'diesel',ecu:'Bosch EDC17CP02',tools:['K-TAG']},
+        {e:'318i 95kW / 129ps',kw:95,ps:129,nm:180,f:'atmo',ecu:'Bosch MEV9.2',tools:['K-TAG']},
+        {e:'320i 110kW / 150ps',kw:110,ps:150,nm:200,f:'atmo',ecu:'Bosch MEV17.2',tools:['K-TAG']},
+        {e:'325i 160kW / 218ps',kw:160,ps:218,nm:270,f:'atmo',ecu:'Bosch MEV17.2',tools:['K-TAG']},
+        {e:'330i 190kW / 258ps',kw:190,ps:258,nm:300,f:'atmo',ecu:'Bosch MEV17.2',tools:['K-TAG']},
+        {e:'335i 225kW / 306ps',kw:225,ps:306,nm:400,f:'turbo',ecu:'Bosch MEVD17.2.3',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'BMW',model:'Serija 5 E60/E61 (2003–2010)',engines:[
+        {e:'520d 120kW / 163ps',kw:120,ps:163,nm:340,f:'diesel',ecu:'Bosch EDC16C35',tools:['K-TAG','FleX OBD']},
+        {e:'525d 130kW / 177ps',kw:130,ps:177,nm:400,f:'diesel',ecu:'Bosch DDE5.1',tools:['K-TAG','FleX OBD']},
+        {e:'530d 160kW / 218ps',kw:160,ps:218,nm:500,f:'diesel',ecu:'Bosch DDE7',tools:['K-TAG']},
+        {e:'535d 200kW / 272ps',kw:200,ps:272,nm:560,f:'diesel',ecu:'Bosch DDE5.1',tools:['K-TAG']},
+        {e:'520i 125kW / 170ps',kw:125,ps:170,nm:210,f:'atmo',ecu:'Siemens MS65',tools:['K-TAG']},
+        {e:'525i 140kW / 192ps',kw:140,ps:192,nm:245,f:'atmo',ecu:'Siemens MS65',tools:['K-TAG']},
+        {e:'530i 190kW / 258ps',kw:190,ps:258,nm:310,f:'atmo',ecu:'Siemens MS65',tools:['K-TAG']},
+      ]},
+      // ── MERCEDES-BENZ ────────────────────────────────────────────────────
+      {make:'Mercedes-Benz',model:'C-Klasa W204 (2007–2014)',engines:[
+        {e:'C180 CDI 85kW / 116ps',kw:85,ps:116,nm:270,f:'diesel',ecu:'Bosch EDC16C31',tools:['K-TAG','FleX OBD']},
+        {e:'C200 CDI 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Bosch EDC16C31',tools:['K-TAG','FleX OBD']},
+        {e:'C220 CDI 125kW / 170ps',kw:125,ps:170,nm:400,f:'diesel',ecu:'Bosch EDC16C31',tools:['K-TAG','FleX OBD']},
+        {e:'C250 CDI 150kW / 204ps',kw:150,ps:204,nm:500,f:'diesel',ecu:'Bosch EDC17C43',tools:['K-TAG','FleX OBD']},
+        {e:'C180 CGI 115kW / 156ps',kw:115,ps:156,nm:230,f:'turbo',ecu:'Bosch MED17.7.2',tools:['K-TAG']},
+        {e:'C200 CGI 135kW / 184ps',kw:135,ps:184,nm:270,f:'turbo',ecu:'Bosch MED17.7.2',tools:['K-TAG']},
+        {e:'C63 AMG 336kW / 457ps',kw:336,ps:457,nm:600,f:'atmo',ecu:'Bosch ME9.7',tools:['K-TAG']},
+      ]},
+      {make:'Mercedes-Benz',model:'E-Klasa W212 (2009–2016)',engines:[
+        {e:'E200 CDI 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Bosch EDC17CP57',tools:['K-TAG','FleX OBD']},
+        {e:'E220 CDI 125kW / 170ps',kw:125,ps:170,nm:400,f:'diesel',ecu:'Bosch EDC17CP57',tools:['K-TAG','FleX OBD']},
+        {e:'E250 CDI 150kW / 204ps',kw:150,ps:204,nm:500,f:'diesel',ecu:'Bosch EDC17CP57',tools:['K-TAG','FleX OBD']},
+        {e:'E300 BlueTEC 170kW / 231ps',kw:170,ps:231,nm:540,f:'diesel',ecu:'Bosch EDC17CP57',tools:['K-TAG']},
+        {e:'E200 CGI 135kW / 184ps',kw:135,ps:184,nm:270,f:'turbo',ecu:'Bosch MED17.7.2',tools:['K-TAG']},
+        {e:'E250 CGI 150kW / 204ps',kw:150,ps:204,nm:310,f:'turbo',ecu:'Bosch MED17.7.2',tools:['K-TAG']},
+      ]},
+      // ── OPEL ─────────────────────────────────────────────────────────────
+      {make:'Opel',model:'Astra H (2004–2010)',engines:[
+        {e:'1.7 CDTI 74kW / 100ps',kw:74,ps:100,nm:240,f:'diesel',ecu:'Denso (Isuzu)',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 CDTI 88kW / 120ps',kw:88,ps:120,nm:280,f:'diesel',ecu:'Bosch EDC16C9',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 CDTI 110kW / 150ps',kw:110,ps:150,nm:320,f:'diesel',ecu:'Bosch EDC16C9',tools:['K-TAG','FleX OBD']},
+        {e:'1.6T OPC 141kW / 192ps',kw:141,ps:192,nm:230,f:'turbo',ecu:'Bosch ME7.6.2',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Opel',model:'Astra J (2009–2015)',engines:[
+        {e:'1.6 CDTI 70kW / 95ps',kw:70,ps:95,nm:210,f:'diesel',ecu:'Bosch EDC17C59',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 CDTI 81kW / 110ps',kw:81,ps:110,nm:260,f:'diesel',ecu:'Bosch EDC17C59',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 CDTI 96kW / 131ps',kw:96,ps:131,nm:300,f:'diesel',ecu:'Bosch EDC17CP47',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 CDTI 118kW / 160ps',kw:118,ps:160,nm:350,f:'diesel',ecu:'Bosch EDC17CP47',tools:['K-TAG','FleX OBD']},
+        {e:'1.6T 132kW / 180ps',kw:132,ps:180,nm:260,f:'turbo',ecu:'Bosch ME17.9.12',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 OPC 206kW / 280ps',kw:206,ps:280,nm:400,f:'turbo',ecu:'Bosch ME17.9.12',tools:['K-TAG']},
+      ]},
+      {make:'Opel',model:'Insignia (2008–2017)',engines:[
+        {e:'2.0 CDTI 81kW / 110ps',kw:81,ps:110,nm:290,f:'diesel',ecu:'Bosch EDC17C19',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 CDTI 96kW / 131ps',kw:96,ps:131,nm:320,f:'diesel',ecu:'Bosch EDC17C19',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 CDTI 118kW / 160ps',kw:118,ps:160,nm:350,f:'diesel',ecu:'Bosch EDC17C19',tools:['K-TAG','FleX OBD']},
+        {e:'2.0T 162kW / 220ps',kw:162,ps:220,nm:350,f:'turbo',ecu:'Bosch ME17.9.7',tools:['K-TAG','FleX OBD']},
+        {e:'2.8T OPC 239kW / 325ps',kw:239,ps:325,nm:435,f:'turbo',ecu:'Bosch ME17.9.7',tools:['K-TAG']},
+      ]},
+      // ── FORD ─────────────────────────────────────────────────────────────
+      {make:'Ford',model:'Focus II (2004–2011)',engines:[
+        {e:'1.6 TDCi 66kW / 90ps',kw:66,ps:90,nm:215,f:'diesel',ecu:'Siemens SID206',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 TDCi 80kW / 109ps',kw:80,ps:109,nm:240,f:'diesel',ecu:'Siemens SID206',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDCi 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Siemens SID206',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 EcoBoost 110kW / 150ps',kw:110,ps:150,nm:240,f:'turbo',ecu:'Bosch ME17.0.3',tools:['K-TAG','FleX OBD']},
+        {e:'2.5 ST 166kW / 225ps',kw:166,ps:225,nm:320,f:'turbo',ecu:'Bosch ME9.0',tools:['K-TAG']},
+      ]},
+      {make:'Ford',model:'Focus III (2011–2018)',engines:[
+        {e:'1.5 TDCi 70kW / 95ps',kw:70,ps:95,nm:215,f:'diesel',ecu:'Bosch EDC17C10',tools:['K-TAG','FleX OBD']},
+        {e:'1.5 TDCi 88kW / 120ps',kw:88,ps:120,nm:270,f:'diesel',ecu:'Bosch EDC17C10',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDCi 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Bosch EDC17C10',tools:['K-TAG','FleX OBD']},
+        {e:'1.0 EcoBoost 74kW / 100ps',kw:74,ps:100,nm:170,f:'turbo',ecu:'Bosch MED17.0.1',tools:['K-TAG','FleX OBD']},
+        {e:'1.0 EcoBoost 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.0.1',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 EcoBoost 134kW / 182ps',kw:134,ps:182,nm:240,f:'turbo',ecu:'Bosch MED17.0.1',tools:['K-TAG','FleX OBD']},
+        {e:'ST 2.0 EcoBoost 184kW / 250ps',kw:184,ps:250,nm:360,f:'turbo',ecu:'Bosch MED17.0.1',tools:['K-TAG']},
+      ]},
+      {make:'Ford',model:'Mondeo III/IV (2000–2014)',engines:[
+        {e:'2.0 TDCi 85kW / 115ps',kw:85,ps:115,nm:280,f:'diesel',ecu:'Siemens SID803',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDCi 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Siemens SID206',tools:['K-TAG','FleX OBD']},
+        {e:'2.2 TDCi 114kW / 155ps',kw:114,ps:155,nm:360,f:'diesel',ecu:'Siemens SID206',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 EcoBoost 149kW / 203ps',kw:149,ps:203,nm:300,f:'turbo',ecu:'Bosch MED17.2',tools:['K-TAG','FleX OBD']},
+      ]},
+      // ── RENAULT ──────────────────────────────────────────────────────────
+      {make:'Renault',model:'Megane II (2002–2008)',engines:[
+        {e:'1.5 dCi 60kW / 82ps',kw:60,ps:82,nm:185,f:'diesel',ecu:'Delphi DCM1.2',tools:['K-TAG','FleX OBD']},
+        {e:'1.5 dCi 76kW / 104ps',kw:76,ps:104,nm:240,f:'diesel',ecu:'Delphi DCM1.2',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 dCi 88kW / 120ps',kw:88,ps:120,nm:300,f:'diesel',ecu:'Bosch EDC16CP33',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 RS 147kW / 200ps',kw:147,ps:200,nm:248,f:'turbo',ecu:'Sagem SID301',tools:['K-TAG']},
+      ]},
+      {make:'Renault',model:'Megane III (2008–2016)',engines:[
+        {e:'1.5 dCi 66kW / 90ps',kw:66,ps:90,nm:220,f:'diesel',ecu:'Delphi DCM1.2',tools:['K-TAG','FleX OBD']},
+        {e:'1.5 dCi 81kW / 110ps',kw:81,ps:110,nm:260,f:'diesel',ecu:'Delphi DCM1.2',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 dCi 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Bosch EDC17C42',tools:['K-TAG','FleX OBD']},
+        {e:'1.6T 132kW / 180ps',kw:132,ps:180,nm:240,f:'turbo',ecu:'Siemens EMS3150',tools:['K-TAG']},
+        {e:'2.0 RS 195kW / 265ps',kw:195,ps:265,nm:360,f:'turbo',ecu:'Siemens EMS3150',tools:['K-TAG']},
+      ]},
+      {make:'Renault',model:'Laguna II/III (2001–2015)',engines:[
+        {e:'1.9 dCi 88kW / 120ps',kw:88,ps:120,nm:300,f:'diesel',ecu:'Bosch EDC16CP33',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 dCi 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Bosch EDC17C42',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 dCi 130kW / 177ps',kw:130,ps:177,nm:380,f:'diesel',ecu:'Bosch EDC17C42',tools:['K-TAG']},
+        {e:'2.0T 125kW / 170ps',kw:125,ps:170,nm:270,f:'turbo',ecu:'Siemens SID301',tools:['K-TAG']},
+      ]},
+      // ── PEUGEOT ──────────────────────────────────────────────────────────
+      {make:'Peugeot',model:'307 (2001–2008)',engines:[
+        {e:'1.6 HDI 66kW / 90ps',kw:66,ps:90,nm:215,f:'diesel',ecu:'Bosch EDC16C34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 HDI 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Siemens SID803',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 THP 110kW / 150ps',kw:110,ps:150,nm:240,f:'turbo',ecu:'Bosch ME7.4.5',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Peugeot',model:'308 (2007–2021)',engines:[
+        {e:'1.6 HDI 66kW / 90ps',kw:66,ps:90,nm:215,f:'diesel',ecu:'Bosch EDC16C34',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 BlueHDI 88kW / 120ps',kw:88,ps:120,nm:300,f:'diesel',ecu:'Bosch EDC17C60',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 HDI 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Bosch EDC17C10',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 THP 115kW / 156ps',kw:115,ps:156,nm:240,f:'turbo',ecu:'Bosch MED17.4',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 GTi 150kW / 204ps',kw:150,ps:204,nm:285,f:'turbo',ecu:'Bosch MED17.4',tools:['K-TAG']},
+      ]},
+      // ── CITROËN ──────────────────────────────────────────────────────────
+      {make:'Citroën',model:'C4 I/II (2004–2018)',engines:[
+        {e:'1.6 HDI 66kW / 90ps',kw:66,ps:90,nm:215,f:'diesel',ecu:'Bosch EDC16C34',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 BlueHDI 88kW / 120ps',kw:88,ps:120,nm:300,f:'diesel',ecu:'Bosch EDC17C60',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 HDI 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Siemens SID803',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 THP 110kW / 150ps',kw:110,ps:150,nm:240,f:'turbo',ecu:'Bosch MED17.4',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Citroën',model:'C5 II/III (2004–2017)',engines:[
+        {e:'1.6 HDI 80kW / 109ps',kw:80,ps:109,nm:240,f:'diesel',ecu:'Bosch EDC16C34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 HDI 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Siemens SID803',tools:['K-TAG','FleX OBD']},
+        {e:'2.2 HDI 125kW / 170ps',kw:125,ps:170,nm:370,f:'diesel',ecu:'Bosch EDC16CP39',tools:['K-TAG']},
+        {e:'2.0 THP 147kW / 200ps',kw:147,ps:200,nm:285,f:'turbo',ecu:'Bosch MED17.4',tools:['K-TAG']},
+      ]},
+      // ── SEAT ─────────────────────────────────────────────────────────────
+      {make:'SEAT',model:'Leon II (2005–2012)',engines:[
+        {e:'1.9 TDI 77kW / 105ps',kw:77,ps:105,nm:250,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 103kW / 140ps',kw:103,ps:140,nm:320,f:'diesel',ecu:'Bosch EDC16U34',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.5.5',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TFSI FR 147kW / 200ps',kw:147,ps:200,nm:280,f:'turbo',ecu:'Bosch MED9.5.10',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 Cupra 177kW / 241ps',kw:177,ps:241,nm:320,f:'turbo',ecu:'Bosch MED9.5.10',tools:['K-TAG']},
+      ]},
+      {make:'SEAT',model:'Leon III (2012–2020)',engines:[
+        {e:'1.6 TDI 66kW / 90ps',kw:66,ps:90,nm:230,f:'diesel',ecu:'Delphi DCM6.2',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 81kW / 110ps',kw:81,ps:110,nm:250,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 TDI 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Bosch EDC17C46',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 TSI 92kW / 125ps',kw:92,ps:125,nm:200,f:'turbo',ecu:'Bosch MED17.5.25',tools:['K-TAG','FleX OBD']},
+        {e:'1.8 TSI 132kW / 180ps',kw:132,ps:180,nm:250,f:'turbo',ecu:'Bosch MED17.5.21',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 Cupra 195kW / 265ps',kw:195,ps:265,nm:350,f:'turbo',ecu:'Bosch MED17.5.25',tools:['K-TAG']},
+      ]},
+      // ── HYUNDAI / KIA ────────────────────────────────────────────────────
+      {make:'Hyundai',model:'i30 I/II (2007–2017)',engines:[
+        {e:'1.4 CRDi 66kW / 90ps',kw:66,ps:90,nm:220,f:'diesel',ecu:'Bosch EDC16C39',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 CRDi 85kW / 116ps',kw:85,ps:116,nm:260,f:'diesel',ecu:'Bosch EDC16C39',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 CRDi 100kW / 136ps',kw:100,ps:136,nm:310,f:'diesel',ecu:'Bosch EDC17C08',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 T-GDI 88kW / 120ps',kw:88,ps:120,nm:200,f:'turbo',ecu:'Bosch MED17.9.8',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Kia',model:'Ceed I/II (2006–2018)',engines:[
+        {e:'1.4 CRDi 66kW / 90ps',kw:66,ps:90,nm:220,f:'diesel',ecu:'Bosch EDC16C39',tools:['K-TAG','FleX OBD']},
+        {e:'1.6 CRDi 85kW / 116ps',kw:85,ps:116,nm:260,f:'diesel',ecu:'Bosch EDC16C39',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 CRDi 100kW / 136ps',kw:100,ps:136,nm:310,f:'diesel',ecu:'Bosch EDC17C08',tools:['K-TAG','FleX OBD']},
+        {e:'1.0 T-GDI 74kW / 100ps',kw:74,ps:100,nm:172,f:'turbo',ecu:'Bosch MED17.9.21',tools:['K-TAG','FleX OBD']},
+        {e:'1.4 T-GDI 103kW / 140ps',kw:103,ps:140,nm:242,f:'turbo',ecu:'Bosch MED17.9.21',tools:['K-TAG','FleX OBD']},
+      ]},
+      // ── DACIA ────────────────────────────────────────────────────────────
+      {make:'Dacia',model:'Duster (2010–2024)',engines:[
+        {e:'1.5 dCi 66kW / 90ps',kw:66,ps:90,nm:220,f:'diesel',ecu:'Delphi DCM1.2',tools:['K-TAG','FleX OBD']},
+        {e:'1.5 dCi 80kW / 109ps',kw:80,ps:109,nm:240,f:'diesel',ecu:'Delphi DCM1.2',tools:['K-TAG','FleX OBD']},
+        {e:'1.3 TCe 96kW / 130ps',kw:96,ps:130,nm:240,f:'turbo',ecu:'Bosch MED17.7.3',tools:['K-TAG','FleX OBD']},
+      ]},
+      {make:'Dacia',model:'Logan / Sandero (2004–2024)',engines:[
+        {e:'1.5 dCi 63kW / 86ps',kw:63,ps:86,nm:200,f:'diesel',ecu:'Delphi DCM1.2',tools:['K-TAG','FleX OBD']},
+        {e:'1.5 dCi 66kW / 90ps',kw:66,ps:90,nm:220,f:'diesel',ecu:'Delphi DCM1.2',tools:['K-TAG','FleX OBD']},
+        {e:'0.9 TCe 66kW / 90ps',kw:66,ps:90,nm:135,f:'turbo',ecu:'Bosch ME17.7.3',tools:['K-TAG','FleX OBD']},
+        {e:'1.3 TCe 96kW / 130ps',kw:96,ps:130,nm:240,f:'turbo',ecu:'Bosch MED17.7.3',tools:['K-TAG','FleX OBD']},
+      ]},
+      // ── ALFA ROMEO ───────────────────────────────────────────────────────
+      {make:'Alfa Romeo',model:'147 / 156 / 159 (2000–2011)',engines:[
+        {e:'1.9 JTD 85kW / 115ps',kw:85,ps:115,nm:280,f:'diesel',ecu:'Bosch EDC15C7',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 JTDm 88kW / 120ps',kw:88,ps:120,nm:280,f:'diesel',ecu:'Bosch EDC16C8',tools:['K-TAG','FleX OBD']},
+        {e:'1.9 JTDm 110kW / 150ps',kw:110,ps:150,nm:320,f:'diesel',ecu:'Bosch EDC16C8',tools:['K-TAG','FleX OBD']},
+        {e:'2.4 JTDm 147kW / 200ps',kw:147,ps:200,nm:400,f:'diesel',ecu:'Bosch EDC16C8',tools:['K-TAG']},
+        {e:'1.8 TBi 147kW / 200ps',kw:147,ps:200,nm:270,f:'turbo',ecu:'Bosch MED17.3.1',tools:['K-TAG']},
+      ]},
+      // ── VOLVO ─────────────────────────────────────────────────────────────
+      {make:'Volvo',model:'V50 / S40 / C30 (2004–2012)',engines:[
+        {e:'1.6D 80kW / 109ps',kw:80,ps:109,nm:240,f:'diesel',ecu:'Siemens SID803A',tools:['K-TAG','FleX OBD']},
+        {e:'2.0D 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Siemens SID803A',tools:['K-TAG','FleX OBD']},
+        {e:'T5 162kW / 220ps',kw:162,ps:220,nm:320,f:'turbo',ecu:'Bosch ME9.0',tools:['K-TAG']},
+      ]},
+      {make:'Volvo',model:'V70 / S60 / XC60 / XC90 (2007–2016)',engines:[
+        {e:'D3 100kW / 136ps',kw:100,ps:136,nm:320,f:'diesel',ecu:'Bosch EDC17CP22',tools:['K-TAG','FleX OBD']},
+        {e:'D4 133kW / 181ps',kw:133,ps:181,nm:400,f:'diesel',ecu:'Bosch EDC17CP22',tools:['K-TAG','FleX OBD']},
+        {e:'D5 151kW / 205ps',kw:151,ps:205,nm:420,f:'diesel',ecu:'Bosch EDC17CP22',tools:['K-TAG']},
+        {e:'T4 132kW / 180ps',kw:132,ps:180,nm:270,f:'turbo',ecu:'Denso MB279700-8460',tools:['K-TAG','FleX OBD']},
+        {e:'T5 180kW / 245ps',kw:180,ps:245,nm:350,f:'turbo',ecu:'Denso MB279700-8460',tools:['K-TAG']},
+      ]},
+      // ── LAND ROVER ────────────────────────────────────────────────────────
+      {make:'Land Rover',model:'Discovery / Freelander / Sport',engines:[
+        {e:'2.0 TD4 110kW / 150ps',kw:110,ps:150,nm:380,f:'diesel',ecu:'Bosch EDC17CP55',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 SD4 132kW / 180ps',kw:132,ps:180,nm:430,f:'diesel',ecu:'Bosch EDC17CP55',tools:['K-TAG','FleX OBD']},
+        {e:'2.7 TDV6 140kW / 190ps',kw:140,ps:190,nm:440,f:'diesel',ecu:'Bosch EDC16CP39',tools:['K-TAG']},
+        {e:'3.0 TDV6 155kW / 211ps',kw:155,ps:211,nm:520,f:'diesel',ecu:'Bosch EDC17CP11',tools:['K-TAG']},
+      ]},
+      // ── TOYOTA ────────────────────────────────────────────────────────────
+      {make:'Toyota',model:'Avensis (2002–2018)',engines:[
+        {e:'2.0 D-4D 81kW / 110ps',kw:81,ps:110,nm:260,f:'diesel',ecu:'Denso 175800-7310',tools:['K-TAG','FleX OBD']},
+        {e:'2.0 D-4D 93kW / 126ps',kw:93,ps:126,nm:300,f:'diesel',ecu:'Denso 89661-05E50',tools:['K-TAG','FleX OBD']},
+        {e:'2.2 D-4D 110kW / 150ps',kw:110,ps:150,nm:340,f:'diesel',ecu:'Denso 89663-05G10',tools:['K-TAG','FleX OBD']},
+        {e:'2.2 D-4D 130kW / 177ps',kw:130,ps:177,nm:400,f:'diesel',ecu:'Denso 89663-05G10',tools:['K-TAG']},
+      ]},
+    ];
 
-    const selMake  = document.getElementById('selMake');
-    const selModel = document.getElementById('selModel');
-    const selYear  = document.getElementById('selYear');
-    const selFuel  = document.getElementById('selFuel');
-    const inpPS    = document.getElementById('inpPS');
-    const inpNm    = document.getElementById('inpNm');
-    const btnCalc  = document.getElementById('btnCalc');
-    const grpModel = document.getElementById('grpModel');
-    const grpYear  = document.getElementById('grpYear');
-    const grpEngine= document.getElementById('grpEngine');
-    const results  = document.getElementById('calcResults');
+    /* ── Gain table by fuel type ── */
+    const GAINS = { diesel:{ps:.27,nm:.22}, turbo:{ps:.20,nm:.18}, atmo:{ps:.07,nm:.05} };
+    const VAG = new Set(['Volkswagen','Škoda','Audi','SEAT','Cupra','Porsche']);
 
-    function enable(el)  { el.disabled = false; el.closest('.calc-sel-group').classList.add('active'); }
-    function disable(el) { el.disabled = true;  el.closest('.calc-sel-group')?.classList.remove('active'); }
+    const selMake   = document.getElementById('selMake');
+    const selModel  = document.getElementById('selModel');
+    const selEngine = document.getElementById('selEngine');
+    const grpModel  = document.getElementById('grpModel');
+    const grpEngine = document.getElementById('grpEngine');
+    const results   = document.getElementById('calcResults');
 
-    async function initCalc() {
-      try {
-        const r = await fetch(NHTSA + '/GetAllMakes?format=json');
-        const j = await r.json();
-        const makes = j.Results
-          .map(m => m.Make_Name.toUpperCase())
-          .filter(m => POPULAR.has(m));
-        const unique = [...new Set(makes)].sort();
-        selMake.innerHTML = '<option value="">— Odaberite marku —</option>' +
-          unique.map(m => `<option value="${m}">${m.charAt(0)+m.slice(1).toLowerCase()}</option>`).join('');
-        enable(selMake);
-      } catch {
-        selMake.innerHTML = '<option value="">Greška — osvježite stranicu</option>';
-      }
+    /* populate makes */
+    const makes = [...new Set(DB.map(v => v.make))].sort();
+    selMake.innerHTML = '<option value="">— Odaberite marku —</option>' +
+      makes.map(m => `<option value="${m}">${m}</option>`).join('');
+
+    function reset(el, placeholder) {
+      el.innerHTML = `<option value="">${placeholder}</option>`;
+      el.disabled = true;
+      el.closest('.calc-sel-group').classList.remove('active');
     }
 
-    selMake.addEventListener('change', async () => {
-      const make = selMake.value;
-      selModel.innerHTML = '<option value="">Učitava se...</option>';
-      disable(selModel); disable(selYear); disable(selFuel); disable(inpPS); disable(inpNm); disable(btnCalc);
+    selMake.addEventListener('change', () => {
+      reset(selModel, '— Odaberite model —');
+      reset(selEngine, '— Odaberite motor —');
       results.style.display = 'none';
-      grpModel.classList.remove('active'); grpYear.classList.remove('active'); grpEngine.classList.remove('active');
-      if (!make) return;
-      try {
-        const r = await fetch(NHTSA + '/GetModelsForMake/' + encodeURIComponent(make) + '?format=json');
-        const j = await r.json();
-        const models = [...new Set(j.Results.map(m => m.Model_Name))].sort();
-        selModel.innerHTML = '<option value="">— Odaberite model —</option>' +
-          models.map(m => `<option value="${m}">${m}</option>`).join('');
-        enable(selModel);
-        grpModel.classList.add('active');
-      } catch {
-        selModel.innerHTML = '<option value="">Greška pri učitavanju</option>';
-      }
+      grpModel.classList.remove('active');
+      grpEngine.classList.remove('active');
+      if (!selMake.value) return;
+
+      const models = DB.filter(v => v.make === selMake.value);
+      selModel.innerHTML = '<option value="">— Odaberite model —</option>' +
+        models.map((v,i) => `<option value="${i}">${v.model}</option>`).join('');
+      selModel.disabled = false;
+      grpModel.classList.add('active');
     });
 
     selModel.addEventListener('change', () => {
-      disable(selYear); disable(selFuel); disable(inpPS); disable(inpNm); disable(btnCalc);
+      reset(selEngine, '— Odaberite motor —');
       results.style.display = 'none';
-      grpYear.classList.remove('active'); grpEngine.classList.remove('active');
+      grpEngine.classList.remove('active');
       if (!selModel.value) return;
-      const yr = new Date().getFullYear();
-      selYear.innerHTML = '<option value="">— Odaberite godište —</option>' +
-        Array.from({length: yr - 1989}, (_, i) => yr - i)
-          .map(y => `<option value="${y}">${y}</option>`).join('');
-      enable(selYear);
-      grpYear.classList.add('active');
-    });
 
-    selYear.addEventListener('change', () => {
-      if (!selYear.value) return;
-      enable(selFuel); enable(inpPS); enable(inpNm);
+      const models = DB.filter(v => v.make === selMake.value);
+      const vehicle = models[parseInt(selModel.value)];
+      selEngine.innerHTML = '<option value="">— Odaberite motor —</option>' +
+        vehicle.engines.map((eng,i) => `<option value="${i}">${eng.e}</option>`).join('');
+      selEngine.disabled = false;
       grpEngine.classList.add('active');
-      selFuel.disabled = false; inpPS.disabled = false; inpNm.disabled = false;
-      checkCalcReady();
     });
 
-    [selFuel, inpPS].forEach(el => el.addEventListener('change', checkCalcReady));
-    [selFuel, inpPS].forEach(el => el.addEventListener('input', checkCalcReady));
-
-    function checkCalcReady() {
-      if (selFuel.value && inpPS.value && parseFloat(inpPS.value) >= 40) {
-        btnCalc.disabled = false;
-      } else {
-        btnCalc.disabled = true;
-      }
-    }
-
-    btnCalc.addEventListener('click', showResults);
+    selEngine.addEventListener('change', () => {
+      results.style.display = 'none';
+      if (!selEngine.value) return;
+      showResults();
+    });
 
     function showResults() {
-      const make  = selMake.value;
-      const model = selModel.value;
-      const year  = selYear.value;
-      const fuel  = selFuel.value;
-      const ps    = parseFloat(inpPS.value) || 0;
-      const nm    = parseFloat(inpNm.value) || 0;
-      if (!fuel || ps < 40) return;
-
-      const gains = { diesel: [.28,.25], turbo: [.22,.20], atmo: [.08,.06] };
-      const [gPs, gNm] = gains[fuel] || [.15,.12];
-      const s1ps = Math.round(ps * (1 + gPs));
-      const s1nm = nm ? Math.round(nm * (1 + gNm)) : 0;
-      const isDiesel = fuel === 'diesel';
-      const isVAG    = VAG.has(make);
-
-      const tools = [
-        { icon: 'fa-microchip',  label: 'K-TAG',        show: true,      info: 'Bench ECU programiranje — direktna veza sa ECU modulom' },
-        { icon: 'fa-plug-circle-bolt', label: 'K-ESS',  show: true,      info: 'OBD tuning alat — brzo programiranje kroz OBD bez demontaže ECU-a' },
-        { icon: 'fa-stethoscope',label: 'Dijagnostika',  show: true,      info: 'Čitanje grešaka i analiza stanja vozila na profesionalnoj opremi' },
-        { icon: 'fa-wrench',     label: 'Fizičko uklanjanje DPF', show: isDiesel, info: 'Vađenje filtera čestica + DPF OFF softver' },
-      ].filter(t => t.show);
+      const models  = DB.filter(v => v.make === selMake.value);
+      const vehicle = models[parseInt(selModel.value)];
+      const eng     = vehicle.engines[parseInt(selEngine.value)];
+      const g       = GAINS[eng.f] || GAINS.diesel;
+      const s1ps    = Math.round(eng.ps * (1 + g.ps));
+      const s1nm    = Math.round(eng.nm * (1 + g.nm));
+      const isDiesel = eng.f === 'diesel';
+      const isVAG    = VAG.has(selMake.value);
 
       const services = [
         'Chiptuning Stage 1',
@@ -2951,18 +3240,24 @@
         <div class="cr-cols">
           <div class="cr-col">
             <div class="cr-col-lbl">Stock — fabrička vrijednosti</div>
-            <div class="cr-stat"><div class="cr-stat-lbl">Snaga</div><div class="cr-stat-val">${ps} PS</div></div>
-            ${nm ? `<div class="cr-stat"><div class="cr-stat-lbl">Moment</div><div class="cr-stat-val">${nm} Nm</div></div>` : ''}
+            <div class="cr-stat"><div class="cr-stat-lbl">Snaga</div><div class="cr-stat-val">${eng.ps} PS &nbsp;/&nbsp; ${eng.kw} kW</div></div>
+            <div class="cr-stat"><div class="cr-stat-lbl">Moment</div><div class="cr-stat-val">${eng.nm} Nm</div></div>
           </div>
           <div class="cr-col stage1">
             <div class="cr-col-lbl">Stage 1 — procjena dobitaka</div>
-            <div class="cr-stat"><div class="cr-stat-lbl">Snaga</div><div class="cr-stat-val">${s1ps} PS <span class="gain">+${s1ps-ps} PS</span></div></div>
-            ${nm ? `<div class="cr-stat"><div class="cr-stat-lbl">Moment</div><div class="cr-stat-val">${s1nm} Nm <span class="gain">+${s1nm-nm} Nm</span></div></div>` : ''}
+            <div class="cr-stat"><div class="cr-stat-lbl">Snaga</div><div class="cr-stat-val">${s1ps} PS <span class="gain">+${s1ps - eng.ps} PS</span></div></div>
+            <div class="cr-stat"><div class="cr-stat-lbl">Moment</div><div class="cr-stat-val">${s1nm} Nm <span class="gain">+${s1nm - eng.nm} Nm</span></div></div>
           </div>
         </div>
         <div class="cr-tools">
-          <div class="cr-block-lbl">Dostupni alati</div>
-          ${tools.map(t => `<div class="cr-tool-item"><i class="fa-solid ${t.icon}"></i><div class="cr-tool-info"><strong>${t.label}</strong><span>${t.info}</span></div></div>`).join('')}
+          <div class="cr-block-lbl">ECU računar</div>
+          <div class="cr-tool-item">
+            <i class="fa-solid fa-microchip"></i>
+            <div class="cr-tool-info">
+              <strong>${eng.ecu}</strong>
+              <span>Kompatibilni alati: ${eng.tools.join(', ')}</span>
+            </div>
+          </div>
         </div>
         <div class="cr-block-lbl">Preporučene usluge za ovo vozilo</div>
         <div class="cr-services">${services.map(s => `<span class="cr-svc-pill">${s}</span>`).join('')}</div>
@@ -2971,9 +3266,8 @@
         </div>
         <p class="cr-note">* Procjena je indikativna — stvarni dobitak ovisi o stanju vozila i originalnoj kalibraciji ECU-a.</p>
       `;
+      results.scrollIntoView({behavior:'smooth', block:'nearest'});
     }
-
-    initCalc();
   })();
   </script>
 </body>
